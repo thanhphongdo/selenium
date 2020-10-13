@@ -18,7 +18,7 @@ module.exports = {
                         {
                             action: 'input',
                             text: 'pgsw_100_{{RANDOM_10000_99999}}@yopmail.com',
-                            delayBefore: 1500
+                            delayBefore: 500
                         }
                     ],
                     expectResults: []
@@ -30,11 +30,11 @@ module.exports = {
                         {
                             action: 'input',
                             text: '{{FIRST_NAME}}-{{RANDOM_10_30}}',
-                            delayBefore: 1500
+                            delayBefore: 500
                         }
                     ],
                     expectResults: [],
-                    delayBefore: 1500
+                    delayBefore: 500
                 },
                 {
                     selectorType: 'id',
@@ -43,11 +43,11 @@ module.exports = {
                         {
                             action: 'input',
                             text: '{{LAST_NAME}}-{{RANDOM_10_30}}',
-                            delayBefore: 1500
+                            delayBefore: 500
                         }
                     ],
                     expectResults: [],
-                    delayBefore: 1500
+                    delayBefore: 500
                 },
                 {
                     selectorType: 'xPath',
@@ -56,11 +56,11 @@ module.exports = {
                         {
                             action: 'input',
                             text: '999{{RANDOM_1000000_9999999}}',
-                            delayBefore: 1500
+                            delayBefore: 500
                         }
                     ],
                     expectResults: [],
-                    delayBefore: 1500
+                    delayBefore: 500
                 },
                 {
                     selectorType: 'xPath',
@@ -71,7 +71,7 @@ module.exports = {
                         }
                     ],
                     expectResults: [],
-                    delayBefore: 1500
+                    delayBefore: 500
                 },
                 {
                     selectorType: 'xPath',
@@ -82,7 +82,7 @@ module.exports = {
                         }
                     ],
                     expectResults: [],
-                    delayAfter: 1500
+                    delayAfter: 500
                 },
                 {
                     selectorType: 'xPath',
@@ -93,7 +93,7 @@ module.exports = {
                         }
                     ],
                     expectResults: [],
-                    delayAfter: 1500
+                    delayAfter: 500
                 },
                 {
                     selectorType: 'tagName',
@@ -102,11 +102,11 @@ module.exports = {
                         {
                             action: 'execute_js',
                             script: 'console.log(12345789)',
-                            delayBefore: 1500
+                            delayBefore: 500
                         }
                     ],
                     expectResults: [],
-                    delayBefore: 1500
+                    delayBefore: 500
                 },
                 {
                     selectorType: 'xPath',
@@ -119,10 +119,10 @@ module.exports = {
                         }
                     ],
                     expectResults: [],
-                    delayBefore: 1500
+                    delayBefore: 500
                 }
             ],
-            autoQuiteTimeOut: 5000
+            autoQuiteTimeOut: 2000
         }
     ]
 }
