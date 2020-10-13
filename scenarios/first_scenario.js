@@ -6,6 +6,10 @@ module.exports = {
         {
             id: 'open_page',
             url: `${config.baseUrl}/applicant`,
+            testData: {
+                FIRST_NAME: 'Phong',
+                LAST_NAME: 'Do'
+            },
             steps: [
                 {
                     selectorType: 'id',
@@ -13,7 +17,8 @@ module.exports = {
                     actions: [
                         {
                             action: 'input',
-                            text: 'pgsw0880@yopmail.com'
+                            text: 'pgsw_100_{{RANDOM_10000_99999}}@yopmail.com',
+                            delayBefore: 1500
                         }
                     ],
                     expectResults: []
@@ -24,10 +29,12 @@ module.exports = {
                     actions: [
                         {
                             action: 'input',
-                            text: 'Phong'
+                            text: '{{FIRST_NAME}}-{{RANDOM_10_30}}',
+                            delayBefore: 1500
                         }
                     ],
-                    expectResults: []
+                    expectResults: [],
+                    delayBefore: 1500
                 },
                 {
                     selectorType: 'id',
@@ -35,10 +42,12 @@ module.exports = {
                     actions: [
                         {
                             action: 'input',
-                            text: 'Do'
+                            text: '{{LAST_NAME}}-{{RANDOM_10_30}}',
+                            delayBefore: 1500
                         }
                     ],
-                    expectResults: []
+                    expectResults: [],
+                    delayBefore: 1500
                 },
                 {
                     selectorType: 'xPath',
@@ -46,31 +55,74 @@ module.exports = {
                     actions: [
                         {
                             action: 'input',
-                            text: '1234456459'
+                            text: '999{{RANDOM_1000000_9999999}}',
+                            delayBefore: 1500
                         }
                     ],
-                    expectResults: []
+                    expectResults: [],
+                    delayBefore: 1500
                 },
                 {
                     selectorType: 'xPath',
                     selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[4]/div/div/div/label',
-                    event: 'click',
-                    expectResults: []
+                    actions: [
+                        {
+                            action: 'click'
+                        }
+                    ],
+                    expectResults: [],
+                    delayBefore: 1500
                 },
                 {
                     selectorType: 'xPath',
                     selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[8]/div/div/div/label',
-                    event: 'click',
-                    expectResults: []
+                    actions: [
+                        {
+                            action: 'click'
+                        }
+                    ],
+                    expectResults: [],
+                    delayAfter: 1500
                 },
                 {
                     selectorType: 'xPath',
                     selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[9]/div/div/div/label',
-                    event: 'click',
-                    expectResults: []
+                    actions: [
+                        {
+                            action: 'click'
+                        }
+                    ],
+                    expectResults: [],
+                    delayAfter: 1500
                 },
+                {
+                    selectorType: 'tagName',
+                    selectorQuery: 'body',
+                    actions: [
+                        {
+                            action: 'execute_js',
+                            script: 'console.log(12345789)',
+                            delayBefore: 1500
+                        }
+                    ],
+                    expectResults: [],
+                    delayBefore: 1500
+                },
+                {
+                    selectorType: 'xPath',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div',
+                    actions: [
+                        {
+                            action: 'scrollToBottom',
+                            scrollTop: 50,
+                            scrollLeft: 0
+                        }
+                    ],
+                    expectResults: [],
+                    delayBefore: 1500
+                }
             ],
-            autoQuiteTimeOut: 15000
+            autoQuiteTimeOut: 5000
         }
     ]
 }

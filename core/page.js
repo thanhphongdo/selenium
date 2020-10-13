@@ -62,13 +62,15 @@ module.exports = class Page {
         return await this.driver.findElement(By.xpath(query));
     }
 
-    // /**
-    //  * 
-    //  * @param {Object} selector 
-    //  * @param {string} selector.type 
-    //  * @param {string} selector.q 
-    //  */
-    // async find(selector) {
-    //     switch
-    // }
+    async executeScript(script) {
+        return await this.driver.executeScript(script);
+    }
+
+    async delay(timer) {
+        return await new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve();
+            }, timer);
+        });
+    }
 }
