@@ -12,6 +12,16 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/main.js"
-        }
+        },
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach and Debug",
+            "restart": true,
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": "${workspaceRoot}",
+            "preLaunchTask": "debug",
+            "postDebugTask": "kill_debug"
+          }
     ]
 }
