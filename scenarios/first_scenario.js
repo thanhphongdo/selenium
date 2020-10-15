@@ -1,6 +1,6 @@
 const config = require('../config/index');
-
-module.exports = {
+const scenario = require('./create_scenario');
+module.exports = scenario.createScenario({
     id: 'first_scenario',
     cases: [
         {
@@ -123,6 +123,19 @@ module.exports = {
                 }
             ],
             autoQuiteTimeOut: 2000
+        },
+        {
+            id: 'case_2',
+            testData: {},
+            steps: [
+                {
+                    actions: [
+                        {
+                            action: ''
+                        }
+                    ]
+                }
+            ]
         }
     ]
-}
+})
