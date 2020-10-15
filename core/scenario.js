@@ -22,7 +22,10 @@ module.exports = class Scenario {
     }
 
     async run() {
-        let caseItem = new Case(this.scenario.cases[0]);
-        await caseItem.run();
+        // let caseItem = new Case(this.scenario.cases[0]);
+        for (let cIndex = 0; cIndex < this.scenario.cases.length; cIndex++) {
+            let caseItem = new Case(this.scenario.cases[cIndex]);
+            await caseItem.run();
+        }
     }
 }

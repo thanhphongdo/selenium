@@ -18,7 +18,7 @@ module.exports = scenario.createScenario({
                         {
                             action: 'input',
                             text: 'pgsw_100_{{RANDOM_10000_99999}}@yopmail.com',
-                            delayBefore: 500
+                            delayBefore: 250
                         }
                     ],
                     expectResult: async (page, assert) => {
@@ -33,11 +33,11 @@ module.exports = scenario.createScenario({
                         {
                             action: 'input',
                             text: '{{FIRST_NAME}}-{{RANDOM_10_30}}',
-                            delayBefore: 500
+                            delayBefore: 250
                         }
                     ],
                     expectResult: null,
-                    delayBefore: 500
+                    delayBefore: 250
                 },
                 {
                     selectorType: 'id',
@@ -46,11 +46,11 @@ module.exports = scenario.createScenario({
                         {
                             action: 'input',
                             text: '{{LAST_NAME}}-{{RANDOM_10_30}}',
-                            delayBefore: 500
+                            delayBefore: 250
                         }
                     ],
                     expectResult: null,
-                    delayBefore: 500
+                    delayBefore: 250
                 },
                 {
                     selectorType: 'xPath',
@@ -59,11 +59,11 @@ module.exports = scenario.createScenario({
                         {
                             action: 'input',
                             text: '999{{RANDOM_1000000_9999999}}',
-                            delayBefore: 500
+                            delayBefore: 250
                         }
                     ],
                     expectResult: null,
-                    delayBefore: 500
+                    delayBefore: 250
                 },
                 {
                     selectorType: 'xPath',
@@ -74,7 +74,7 @@ module.exports = scenario.createScenario({
                         }
                     ],
                     expectResult: null,
-                    delayBefore: 500
+                    delayBefore: 250
                 },
                 {
                     selectorType: 'xPath',
@@ -85,7 +85,7 @@ module.exports = scenario.createScenario({
                         }
                     ],
                     expectResult: null,
-                    delayAfter: 500
+                    delayAfter: 250
                 },
                 {
                     selectorType: 'xPath',
@@ -96,7 +96,7 @@ module.exports = scenario.createScenario({
                         }
                     ],
                     expectResult: null,
-                    delayAfter: 500
+                    delayAfter: 250
                 },
                 {
                     selectorType: 'tagName',
@@ -105,11 +105,11 @@ module.exports = scenario.createScenario({
                         {
                             action: 'execute_js',
                             script: 'console.log(12345789)',
-                            delayBefore: 500
+                            delayBefore: 250
                         }
                     ],
                     expectResult: null,
-                    delayBefore: 500
+                    delayBefore: 250
                 },
                 {
                     selectorType: 'xPath',
@@ -122,27 +122,142 @@ module.exports = scenario.createScenario({
                         }
                     ],
                     expectResult: null,
-                    delayBefore: 500
+                    delayBefore: 250
                 }
             ],
             expectResult: async (page, assert) => {
                 await page.findByTagName('body');
                 assert.include('Bar', 'ar3', 'include "ar"')
             },
-            autoQuiteTimeOut: 2000
+            autoQuiteTimeOut: 1000
         },
-        // {
-        //     id: 'case_2',
-        //     testData: {},
-        //     steps: [
-        //         {
-        //             actions: [
-        //                 {
-        //                     action: ''
-        //                 }
-        //             ]
-        //         }
-        //     ]
-        // }
+        {
+            id: 'open_page',
+            url: `${config.baseUrl}/applicant`,
+            testData: {
+                FIRST_NAME: 'Phong',
+                LAST_NAME: 'Do'
+            },
+            steps: [
+                {
+                    selectorType: 'id',
+                    selectorQuery: 'email',
+                    actions: [
+                        {
+                            action: 'input',
+                            text: 'pgsw_100_{{RANDOM_10000_99999}}@yopmail.com',
+                            delayBefore: 250
+                        }
+                    ],
+                    expectResult: async (page, assert) => {
+                        await page.findByTagName('body');
+                        assert.include('Bar', 'ar2', 'include "ar"')
+                    }
+                },
+                {
+                    selectorType: 'id',
+                    selectorQuery: 'firstName',
+                    actions: [
+                        {
+                            action: 'input',
+                            text: '{{FIRST_NAME}}-{{RANDOM_10_30}}',
+                            delayBefore: 250
+                        }
+                    ],
+                    expectResult: null,
+                    delayBefore: 250
+                },
+                {
+                    selectorType: 'id',
+                    selectorQuery: 'lastName',
+                    actions: [
+                        {
+                            action: 'input',
+                            text: '{{LAST_NAME}}-{{RANDOM_10_30}}',
+                            delayBefore: 250
+                        }
+                    ],
+                    expectResult: null,
+                    delayBefore: 250
+                },
+                {
+                    selectorType: 'xPath',
+                    selectorQuery: '//*[@id="mobilePhoneNumber"]/input',
+                    actions: [
+                        {
+                            action: 'input',
+                            text: '888{{RANDOM_1000000_9999999}}',
+                            delayBefore: 250
+                        }
+                    ],
+                    expectResult: null,
+                    delayBefore: 250
+                },
+                {
+                    selectorType: 'xPath',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[4]/div/div/div/label',
+                    actions: [
+                        {
+                            action: 'click'
+                        }
+                    ],
+                    expectResult: null,
+                    delayBefore: 250
+                },
+                {
+                    selectorType: 'xPath',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[8]/div/div/div/label',
+                    actions: [
+                        {
+                            action: 'click'
+                        }
+                    ],
+                    expectResult: null,
+                    delayAfter: 250
+                },
+                {
+                    selectorType: 'xPath',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[9]/div/div/div/label',
+                    actions: [
+                        {
+                            action: 'click'
+                        }
+                    ],
+                    expectResult: null,
+                    delayAfter: 250
+                },
+                {
+                    selectorType: 'tagName',
+                    selectorQuery: 'body',
+                    actions: [
+                        {
+                            action: 'execute_js',
+                            script: 'console.log(12345789)',
+                            delayBefore: 250
+                        }
+                    ],
+                    expectResult: null,
+                    delayBefore: 250
+                },
+                {
+                    selectorType: 'xPath',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div',
+                    actions: [
+                        {
+                            action: 'scrollToBottom',
+                            scrollTop: 50,
+                            scrollLeft: 0
+                        }
+                    ],
+                    expectResult: null,
+                    delayBefore: 250
+                }
+            ],
+            expectResult: async (page, assert) => {
+                await page.findByTagName('body');
+                assert.include('Bar', 'ar3', 'include "ar"')
+            },
+            autoQuiteTimeOut: 1000
+        }
     ]
 })

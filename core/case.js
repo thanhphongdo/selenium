@@ -145,5 +145,6 @@ module.exports = class Case {
             await this.page.delay(this.caseData.autoQuiteTimeOut);
             this.page.quite();
         }
+        await this.page.delay(2000);
     }
 }
