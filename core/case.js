@@ -1,3 +1,4 @@
+const {assert} = require('chai');
 const Page = require('./page');
 const utils = require('./utils/index');
 
@@ -9,10 +10,11 @@ class CaseData {
      * @param {string} caseData.url
      * @param {Object} caseData.testData
      * @param {boolean} caseData.autoQuiteTimeOut
+     * @param {function} caseData.expectResult
      * @param {Object[]} caseData.steps
      * @param {string} caseData.steps[].selectorType
      * @param {string} caseData.steps[].selectorQuery
-     * @param {string} caseData.steps[].event
+     * @param {function} caseData.steps[].expectResult
      * @param {number} caseData.steps[].delayBefore
      * @param {number} caseData.steps[].delayAfter
      * @param {Object[]} caseData.steps[].actions
@@ -23,13 +25,13 @@ class CaseData {
      * @param {string} caseData.steps[].actions[].script
      * @param {string} caseData.steps[].actions[].scrollTop
      * @param {string} caseData.steps[].actions[].scrollLeft
-     * @param {Object[]} caseData.expectResults
      */
     constructor(caseData) {
         if (!caseData.testData) caseData.testData = {};
         this.id = caseData.id;
         this.url = caseData.url;
         this.autoQuiteTimeOut = caseData.autoQuiteTimeOut;
+        this.expectResult = caseData.expectResult;
         caseData.steps.forEach(sItem => {
             sItem.actions.forEach(aItem => {
                 if (aItem.text) {
@@ -111,6 +113,16 @@ module.exports = class Case {
                 if (action.delayAfter) await this.page.delay(action.delayAfter);
             }
         }
+        if (step.expectResult) {
+            try {
+                await step.expectResult(this.page, assert);
+            }
+            catch (err) {
+                if (err && err.message) {
+                    console.log(err.message);
+                }
+            }
+        }
         if (step.delayAfter) await this.page.delay(step.delayAfter);
     }
 
@@ -118,6 +130,16 @@ module.exports = class Case {
         await this.openBrowser();
         for (let sIndex = 0; sIndex < this.caseData.steps.length; sIndex++) {
             await this.runStep(sIndex);
+        }
+        if (this.caseData.expectResult) {
+            try {
+                await this.caseData.expectResult(this.page, assert);
+            }
+            catch (err) {
+                if (err && err.message) {
+                    console.log(err.message);
+                }
+            }
         }
         if (this.caseData.autoQuiteTimeOut) {
             await this.page.delay(this.caseData.autoQuiteTimeOut);

@@ -21,7 +21,10 @@ module.exports = scenario.createScenario({
                             delayBefore: 500
                         }
                     ],
-                    expectResults: []
+                    expectResult: async (page, assert) => {
+                        await page.findByTagName('body');
+                        assert.include('Bar', 'ar2', 'include "ar"')
+                    }
                 },
                 {
                     selectorType: 'id',
@@ -33,7 +36,7 @@ module.exports = scenario.createScenario({
                             delayBefore: 500
                         }
                     ],
-                    expectResults: [],
+                    expectResult: null,
                     delayBefore: 500
                 },
                 {
@@ -46,7 +49,7 @@ module.exports = scenario.createScenario({
                             delayBefore: 500
                         }
                     ],
-                    expectResults: [],
+                    expectResult: null,
                     delayBefore: 500
                 },
                 {
@@ -59,7 +62,7 @@ module.exports = scenario.createScenario({
                             delayBefore: 500
                         }
                     ],
-                    expectResults: [],
+                    expectResult: null,
                     delayBefore: 500
                 },
                 {
@@ -70,7 +73,7 @@ module.exports = scenario.createScenario({
                             action: 'click'
                         }
                     ],
-                    expectResults: [],
+                    expectResult: null,
                     delayBefore: 500
                 },
                 {
@@ -81,7 +84,7 @@ module.exports = scenario.createScenario({
                             action: 'click'
                         }
                     ],
-                    expectResults: [],
+                    expectResult: null,
                     delayAfter: 500
                 },
                 {
@@ -92,7 +95,7 @@ module.exports = scenario.createScenario({
                             action: 'click'
                         }
                     ],
-                    expectResults: [],
+                    expectResult: null,
                     delayAfter: 500
                 },
                 {
@@ -105,7 +108,7 @@ module.exports = scenario.createScenario({
                             delayBefore: 500
                         }
                     ],
-                    expectResults: [],
+                    expectResult: null,
                     delayBefore: 500
                 },
                 {
@@ -118,24 +121,28 @@ module.exports = scenario.createScenario({
                             scrollLeft: 0
                         }
                     ],
-                    expectResults: [],
+                    expectResult: null,
                     delayBefore: 500
                 }
             ],
+            expectResult: async (page, assert) => {
+                await page.findByTagName('body');
+                assert.include('Bar', 'ar3', 'include "ar"')
+            },
             autoQuiteTimeOut: 2000
         },
-        {
-            id: 'case_2',
-            testData: {},
-            steps: [
-                {
-                    actions: [
-                        {
-                            action: ''
-                        }
-                    ]
-                }
-            ]
-        }
+        // {
+        //     id: 'case_2',
+        //     testData: {},
+        //     steps: [
+        //         {
+        //             actions: [
+        //                 {
+        //                     action: ''
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // }
     ]
 })

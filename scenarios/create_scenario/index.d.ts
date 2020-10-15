@@ -1,3 +1,5 @@
+import * as Page from '../../core/page';
+
 export interface ActionInterface {
     action?: string;
     text?: string;
@@ -10,7 +12,7 @@ export interface StepInterface {
     selectorType: string;
     selectorQuery: string;
     actions: ActionInterface[];
-    expectResults: any[];
+    expectResult?(page: Page, assert: Chai.Assert): any;
     delayBefore?: number;
     delayAfter?: number;
 }
@@ -20,6 +22,7 @@ export interface CaseInterface {
     url: string;
     testData: { [key: string]: any } | [{ [key: string]: any }]
     steps: StepInterface[];
+    expectResult?(page: Page, assets: Chai.Assert): any;
     autoQuiteTimeOut?: number;
 }
 
