@@ -6,9 +6,21 @@ module.exports = scenario.createScenario({
         {
             id: 'open_page',
             url: `${config.baseUrl}/applicant`,
-            testData: {
-                FIRST_NAME: 'Phong',
-                LAST_NAME: 'Do'
+            testData: async (utils, scenario) => {
+                console.log(utils);
+                console.log(scenario.id);
+                return [
+                    async (utils) => {
+                        return {
+                            FIRST_NAME: 'Phong222',
+                            LAST_NAME: 'Do222'
+                        }
+                    },
+                    {
+                        FIRST_NAME: 'Phong333',
+                        LAST_NAME: 'Do333'
+                    }
+                ]
             },
             steps: [
                 {
@@ -135,8 +147,8 @@ module.exports = scenario.createScenario({
             id: 'open_page',
             url: `${config.baseUrl}/applicant`,
             testData: {
-                FIRST_NAME: 'Phong',
-                LAST_NAME: 'Do'
+                FIRST_NAME: 'Phong444',
+                LAST_NAME: 'Do444'
             },
             steps: [
                 {

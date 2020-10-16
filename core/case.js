@@ -1,6 +1,7 @@
-const {assert} = require('chai');
+const {assert, util} = require('chai');
 const Page = require('./page');
-const utils = require('./utils/index');
+const Utils = require('./utils/index');
+let utils = new Utils();
 
 class CaseData {
     /**
@@ -26,29 +27,47 @@ class CaseData {
      * @param {string} caseData.steps[].actions[].scrollTop
      * @param {string} caseData.steps[].actions[].scrollLeft
      */
-    constructor(caseData) {
-        if (!caseData.testData) caseData.testData = {};
+    constructor(caseData, testData) {
+        this.caseData = caseData;
+        this.testData = testData;
         this.id = caseData.id;
         this.url = caseData.url;
         this.autoQuiteTimeOut = caseData.autoQuiteTimeOut;
         this.expectResult = caseData.expectResult;
-        caseData.steps.forEach(sItem => {
+        this.steps = [];
+        caseData.steps.forEach(item => {
+            let step = Object.assign({}, item);
+            step.actions = [];
+            item.actions.forEach(action => {
+                step.actions.push(Object.assign({}, action));
+            });
+            this.steps.push(step);
+        })
+    }
+
+    async processTestData() {
+        let data = this.testData;
+        if (!data) data = {};
+        if (typeof this.testData == 'function') {
+            data = await this.testData(utils);
+        }
+        this.steps.forEach(sItem => {
             sItem.actions.forEach(aItem => {
                 if (aItem.text) {
-                    aItem.text = utils.valueReplace(aItem.text, caseData.testData);
+                    aItem.text = utils.valueReplace(aItem.text, data);
                 }
                 if (aItem.script) {
-                    aItem.script = utils.valueReplace(aItem.script, caseData.testData);
+                    aItem.script = utils.valueReplace(aItem.script, data);
                 }
             });
         });
-        this.steps = caseData.steps;
+        console.log(this.steps);
     }
 }
 
 module.exports = class Case {
-    constructor(caseData) {
-        this.caseData = new CaseData(caseData);
+    constructor(caseData, testData) {
+        this.caseData = new CaseData(caseData, testData);
         this.page = new Page();
     }
 
@@ -128,6 +147,7 @@ module.exports = class Case {
 
     async run() {
         await this.openBrowser();
+        await this.caseData.processTestData();
         for (let sIndex = 0; sIndex < this.caseData.steps.length; sIndex++) {
             await this.runStep(sIndex);
         }

@@ -1,6 +1,8 @@
 const {Builder, By, until} = require('selenium-webdriver');
-// const Page = require('./page');
+const Utils = require('./utils');
 const Case = require('./case');
+
+const utils = new Utils();
 
 class ScenarioData {
     /**
@@ -24,8 +26,19 @@ module.exports = class Scenario {
     async run() {
         // let caseItem = new Case(this.scenario.cases[0]);
         for (let cIndex = 0; cIndex < this.scenario.cases.length; cIndex++) {
-            let caseItem = new Case(this.scenario.cases[cIndex]);
-            await caseItem.run();
+            let caseData = this.scenario.cases[cIndex]
+            if (typeof caseData.testData == 'function') {
+                caseData.testData = await caseData.testData(utils, this.scenario);
+            }
+            if (Array.isArray(caseData.testData)) {
+                for (let tIndex = 0; tIndex < caseData.testData.length; tIndex++) {
+                    let caseItem = new Case(caseData, caseData.testData[tIndex]);
+                    await caseItem.run();
+                }
+            } else {
+                let caseItem = new Case(caseData, caseData.testData);
+                await caseItem.run();
+            }
         }
     }
 }

@@ -1,4 +1,9 @@
 import * as Page from '../../core/page';
+import * as Utils from '../../core/utils';
+
+export interface TestDataFunctionInterface {
+    (utils: Utils, scenario?: ScenarioInterface): any
+}
 
 export interface ActionInterface {
     action?: string;
@@ -20,7 +25,8 @@ export interface StepInterface {
 export interface CaseInterface {
     id: string;
     url: string;
-    testData: { [key: string]: any } | [{ [key: string]: any }]
+    testData: { [key: string]: any } | TestDataFunctionInterface | [{ [key: string]: any } | TestDataFunctionInterface];
+    // testData: TestDataFunctionInterface;
     steps: StepInterface[];
     expectResult?(page: Page, assets: Chai.Assert): any;
     autoQuiteTimeOut?: number;
