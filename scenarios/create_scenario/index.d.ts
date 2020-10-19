@@ -1,5 +1,6 @@
 import * as Page from '../../core/page';
 import * as Utils from '../../core/utils';
+import { WebElement } from 'selenium-webdriver';
 
 export interface TestDataFunctionInterface {
     (utils: Utils, scenario?: ScenarioInterface): any
@@ -7,6 +8,7 @@ export interface TestDataFunctionInterface {
 
 export interface ActionInterface {
     action?: string;
+    actionFunc?: (element: WebElement, page: Page, utils: Utils) => any;
     text?: string;
     script?: string;
     delayBefore?: number;
@@ -16,7 +18,7 @@ export interface ActionInterface {
 export interface StepInterface {
     selectorType: string;
     selectorQuery: string;
-    actions: ActionInterface[];
+    action: ActionInterface;
     expectResult?(page: Page, assert: Chai.Assert): any;
     delayBefore?: number;
     delayAfter?: number;

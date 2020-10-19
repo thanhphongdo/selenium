@@ -1,4 +1,4 @@
-const {assert, util} = require('chai');
+const {assert} = require('chai');
 const Page = require('./page');
 const Utils = require('./utils/index');
 let utils = new Utils();
@@ -18,14 +18,14 @@ class CaseData {
      * @param {function} caseData.steps[].expectResult
      * @param {number} caseData.steps[].delayBefore
      * @param {number} caseData.steps[].delayAfter
-     * @param {Object[]} caseData.steps[].actions
-     * @param {string} caseData.steps[].actions[].action
-     * @param {number} caseData.steps[].actions[].delayBefore
-     * @param {number} caseData.steps[].actions[].delayAfter
-     * @param {string} caseData.steps[].actions[].text
-     * @param {string} caseData.steps[].actions[].script
-     * @param {string} caseData.steps[].actions[].scrollTop
-     * @param {string} caseData.steps[].actions[].scrollLeft
+     * @param {string} caseData.steps[].action
+     * @param {Function} caseData.steps[].actionFunc
+     * @param {number} caseData.steps[].delayBefore
+     * @param {number} caseData.steps[].delayAfter
+     * @param {string} caseData.steps[].text
+     * @param {string} caseData.steps[].script
+     * @param {string} caseData.steps[].scrollTop
+     * @param {string} caseData.steps[].scrollLeft
      */
     constructor(caseData, testData) {
         this.caseData = caseData;
@@ -37,10 +37,7 @@ class CaseData {
         this.steps = [];
         caseData.steps.forEach(item => {
             let step = Object.assign({}, item);
-            step.actions = [];
-            item.actions.forEach(action => {
-                step.actions.push(Object.assign({}, action));
-            });
+            step.action = Object.assign({}, step.action);
             this.steps.push(step);
         })
     }
@@ -51,14 +48,12 @@ class CaseData {
             data = await this.testData(utils);
         }
         this.steps.forEach(sItem => {
-            sItem.actions.forEach(aItem => {
-                if (aItem.text) {
-                    aItem.text = utils.valueReplace(aItem.text, data);
-                }
-                if (aItem.script) {
-                    aItem.script = utils.valueReplace(aItem.script, data);
-                }
-            });
+            if (sItem.action.text) {
+                sItem.action.text = utils.valueReplace(sItem.action.text, data);
+            }
+            if (sItem.action.script) {
+                sItem.action.script = utils.valueReplace(sItem.action.script, data);
+            }
         });
     }
 }
@@ -90,46 +85,47 @@ module.exports = class Case {
         let step = this.caseData.steps[index];
         let element = await this.findElementAtStep(step);
         if (step.delayBefore) await this.page.delay(step.delayBefore);
-        if (step.actions && step.actions.length) {
-            for (let aIndex = 0; aIndex < step.actions.length; aIndex++) {
-                let action = step.actions[aIndex];
-                if (action.delayBefore) await this.page.delay(action.delayBefore);
-                switch (action.action) {
-                    case 'click':
-                        await element.click();
-                        break;
-                    case 'input':
-                        await element.sendKeys(action.text);
-                        break;
-                    case 'scroll':
-                        if (step.selectorType == 'xPath') {
-                            let varName = 'ele_' + new Date().getTime();
-                            await this.page.executeScript(`
+        let action = step.action;
+        if (action.delayBefore) await this.page.delay(action.delayBefore);
+        if (action.action) {
+            switch (action.action) {
+                case 'click':
+                    await element.click();
+                    break;
+                case 'input':
+                    await element.sendKeys(action.text);
+                    break;
+                case 'scroll':
+                    if (step.selectorType == 'xPath') {
+                        let varName = 'ele_' + new Date().getTime();
+                        await this.page.executeScript(`
                                     let ${varName} = document.evaluate('${step.selectorQuery}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
                                     ${varName}.scroll(${action.scrollLeft}, ${action.scrollTop});
                                 `);
-                        } else {
-                            console.info('Scroll action support xPath only.');
-                        }
-                        break;
-                    case 'scrollToBottom':
-                        if (step.selectorType == 'xPath') {
-                            let varName = 'ele_' + new Date().getTime();
-                            await this.page.executeScript(`
+                    } else {
+                        console.info('Scroll action support xPath only.');
+                    }
+                    break;
+                case 'scrollToBottom':
+                    if (step.selectorType == 'xPath') {
+                        let varName = 'ele_' + new Date().getTime();
+                        await this.page.executeScript(`
                                 let ${varName} = document.evaluate('${step.selectorQuery}', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
                                 ${varName}.scroll(0, ${varName}.scrollHeight);
                             `);
-                        } else {
-                            console.info('Scroll action support xPath only.');
-                        }
-                        break;
-                    case 'execute_js':
-                        await this.page.executeScript(action.script);
-                        break;
-                }
-                if (action.delayAfter) await this.page.delay(action.delayAfter);
+                    } else {
+                        console.info('Scroll action support xPath only.');
+                    }
+                    break;
+                case 'execute_js':
+                    await this.page.executeScript(action.script);
+                    break;
             }
         }
+        if (action.actionFunc) {
+            await action.actionFunc(this.page, element, utils);
+        }
+        if (action.delayAfter) await this.page.delay(action.delayAfter);
         if (step.expectResult) {
             try {
                 await step.expectResult(this.page, assert);
