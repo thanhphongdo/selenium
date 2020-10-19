@@ -45,8 +45,7 @@ class CaseData {
         })
     }
 
-    async processTestData() {
-        let data = this.testData;
+    async processTestData(data) {
         if (!data) data = {};
         if (typeof this.testData == 'function') {
             data = await this.testData(utils);
@@ -61,7 +60,6 @@ class CaseData {
                 }
             });
         });
-        console.log(this.steps);
     }
 }
 
@@ -146,8 +144,8 @@ module.exports = class Case {
     }
 
     async run() {
+        await this.caseData.processTestData(this.caseData.testData);
         await this.openBrowser();
-        await this.caseData.processTestData();
         for (let sIndex = 0; sIndex < this.caseData.steps.length; sIndex++) {
             await this.runStep(sIndex);
         }

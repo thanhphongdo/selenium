@@ -7,13 +7,14 @@ module.exports = scenario.createScenario({
             id: 'open_page',
             url: `${config.baseUrl}/applicant`,
             testData: async (utils, scenario) => {
-                console.log(utils);
-                console.log(scenario.id);
                 return [
                     async (utils) => {
                         return {
                             FIRST_NAME: 'Phong222',
-                            LAST_NAME: 'Do222'
+                            LAST_NAME: 'Do222',
+                            FUNC_TEST_1_2: (utils, param1, param2) => {
+                                return param1 + '___' + param2;
+                            }
                         }
                     },
                     {
@@ -35,7 +36,7 @@ module.exports = scenario.createScenario({
                     ],
                     expectResult: async (page, assert) => {
                         await page.findByTagName('body');
-                        assert.include('Bar', 'ar2', 'include "ar"')
+                        assert.include('Bar', 'ar2', 'include "ar"');
                     }
                 },
                 {
@@ -44,7 +45,7 @@ module.exports = scenario.createScenario({
                     actions: [
                         {
                             action: 'input',
-                            text: '{{FIRST_NAME}}-{{RANDOM_10_30}}',
+                            text: '{{FIRST_NAME}}-{{RANDOM_10_30}}-{{FUNC_TEST_1_2}}',
                             delayBefore: 250
                         }
                     ],
@@ -57,7 +58,7 @@ module.exports = scenario.createScenario({
                     actions: [
                         {
                             action: 'input',
-                            text: '{{LAST_NAME}}-{{RANDOM_10_30}}',
+                            text: '{{LAST_NAME}}-{{RANDOM_10_30}}-{{FUNC_TEST_1_2}}',
                             delayBefore: 250
                         }
                     ],
@@ -79,7 +80,7 @@ module.exports = scenario.createScenario({
                 },
                 {
                     selectorType: 'xPath',
-                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[4]/div/div/div/label',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[4]/div/div/div/label/i',
                     actions: [
                         {
                             action: 'click'
@@ -90,7 +91,7 @@ module.exports = scenario.createScenario({
                 },
                 {
                     selectorType: 'xPath',
-                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[8]/div/div/div/label',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[8]/div/div/div/label/i',
                     actions: [
                         {
                             action: 'click'
@@ -101,7 +102,7 @@ module.exports = scenario.createScenario({
                 },
                 {
                     selectorType: 'xPath',
-                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[9]/div/div/div/label',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[9]/div/div/div/label/i',
                     actions: [
                         {
                             action: 'click'
@@ -123,19 +124,19 @@ module.exports = scenario.createScenario({
                     expectResult: null,
                     delayBefore: 250
                 },
-                {
-                    selectorType: 'xPath',
-                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div',
-                    actions: [
-                        {
-                            action: 'scrollToBottom',
-                            scrollTop: 50,
-                            scrollLeft: 0
-                        }
-                    ],
-                    expectResult: null,
-                    delayBefore: 250
-                }
+                // {
+                //     selectorType: 'xPath',
+                //     selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div',
+                //     actions: [
+                //         {
+                //             action: 'scrollToBottom',
+                //             scrollTop: 50,
+                //             scrollLeft: 0
+                //         }
+                //     ],
+                //     expectResult: null,
+                //     delayBefore: 250
+                // }
             ],
             expectResult: async (page, assert) => {
                 await page.findByTagName('body');
@@ -148,7 +149,10 @@ module.exports = scenario.createScenario({
             url: `${config.baseUrl}/applicant`,
             testData: {
                 FIRST_NAME: 'Phong444',
-                LAST_NAME: 'Do444'
+                LAST_NAME: 'Do444',
+                FUNC_TEST_1_2: (utils, param1, param2) => {
+                    return param1 + '---' + param2;
+                }
             },
             steps: [
                 {
@@ -207,7 +211,7 @@ module.exports = scenario.createScenario({
                 },
                 {
                     selectorType: 'xPath',
-                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[4]/div/div/div/label',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[4]/div/div/div/label/i',
                     actions: [
                         {
                             action: 'click'
@@ -218,7 +222,7 @@ module.exports = scenario.createScenario({
                 },
                 {
                     selectorType: 'xPath',
-                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[8]/div/div/div/label',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[8]/div/div/div/label/i',
                     actions: [
                         {
                             action: 'click'
@@ -229,7 +233,7 @@ module.exports = scenario.createScenario({
                 },
                 {
                     selectorType: 'xPath',
-                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[9]/div/div/div/label',
+                    selectorQuery: '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[9]/div/div/div/label/i',
                     actions: [
                         {
                             action: 'click'
@@ -251,19 +255,19 @@ module.exports = scenario.createScenario({
                     expectResult: null,
                     delayBefore: 250
                 },
-                {
-                    selectorType: 'xPath',
-                    selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div',
-                    actions: [
-                        {
-                            action: 'scrollToBottom',
-                            scrollTop: 50,
-                            scrollLeft: 0
-                        }
-                    ],
-                    expectResult: null,
-                    delayBefore: 250
-                }
+                // {
+                //     selectorType: 'xPath',
+                //     selectorQuery: '//*[@id="rootBody"]/app-root/div/div/ng-sidebar-container/div',
+                //     actions: [
+                //         {
+                //             action: 'scrollToBottom',
+                //             scrollTop: 50,
+                //             scrollLeft: 0
+                //         }
+                //     ],
+                //     expectResult: null,
+                //     delayBefore: 250
+                // }
             ],
             expectResult: async (page, assert) => {
                 await page.findByTagName('body');

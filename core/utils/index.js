@@ -1,4 +1,5 @@
 const reg = /{{[\w|\s]+}}/g;
+const prettier = require('prettier');
 
 module.exports = class Utils {
     /**
@@ -30,7 +31,7 @@ module.exports = class Utils {
 
     /**
      * 
-     * @param {string} templace 
+     * @param {string} template 
      * @param {Object} data 
      */
     valueReplace(template, data) {
@@ -46,8 +47,36 @@ module.exports = class Utils {
                 if (!data[randomKey]) data[randomKey] = this.random(randomFrom, randomTo);
             });
         }
+        let funcReg = /{{(\s+)?FUNC_(\w+)(\s+)?}}/g;
+        let matchFuncReg = template.match(funcReg);
+        if (matchFuncReg && matchFuncReg.length) {
+            matchFuncReg.forEach(async item => {
+                let funcName = item.replace('{{', '').replace('}}', '').trim();
+                let func = funcName.split('_');
+                let params = func.slice(2);
+                if (data[funcName] && typeof data[funcName] == 'function') {
+                    data[funcName] = data[funcName](this, ...params);
+                }
+            });
+        }
         return this.stringReplace(template, data);
     }
 
     async readCSV() {}
+
+    /**
+     * 
+     * @param {string} code 
+     */
+    formatJSCode(code) {
+        return prettier.format(code, {semi: true, parser: 'babel', tabWidth: 4});
+    }
+
+    /**
+     * 
+     * @param {string} code 
+     */
+    formatJSONCode(code) {
+        return prettier.format(code, {semi: true, parser: 'json', tabWidth: 4});
+    }
 }

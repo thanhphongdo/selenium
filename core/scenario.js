@@ -26,7 +26,7 @@ module.exports = class Scenario {
     async run() {
         // let caseItem = new Case(this.scenario.cases[0]);
         for (let cIndex = 0; cIndex < this.scenario.cases.length; cIndex++) {
-            let caseData = this.scenario.cases[cIndex]
+            let caseData = this.scenario.cases[cIndex];
             if (typeof caseData.testData == 'function') {
                 caseData.testData = await caseData.testData(utils, this.scenario);
             }
