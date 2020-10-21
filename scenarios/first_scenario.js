@@ -31,7 +31,7 @@ module.exports = scenario.createScenario({
                         // action: 'input',
                         // text: 'pgsw_100_{{RANDOM_10000_99999}}@yopmail.com',
                         actionFunc: async (page, element, utils) => {
-                            await element.sendKeys('pgsw_100_' + utils.random(1000000, 9999999) + '@yopmail.com')
+                            await element.sendKeys('pgsw_100_' + utils.random(1000000, 9999999) + '@yopmail.com');
                         },
                         delayBefore: 250
                     },
