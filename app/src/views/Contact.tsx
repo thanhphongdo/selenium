@@ -10,7 +10,7 @@ export default class Contact extends Vue {
     render() {
       this.message = 'hihi';
       return (
-            <div>
+            <div class="tw-bg-grey-lightest">
                 Contact <Logo message={this.message}></Logo>
             </div>
       );

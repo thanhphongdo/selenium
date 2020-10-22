@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" class="tw-bg-grey">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/contact">Contact</router-link>
@@ -8,8 +8,15 @@
     <router-view />
   </div>
 </template>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+@Component
+export default class App extends Vue {}
+</script>
 
 <style lang="scss">
+@import url("./assets/tailwindcss/dist/tailwind.min.css");
+@import url("./assets/fomantic-ui/dist/semantic.min.css");
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
