@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="tw-p-8">
+  <div id="app" class="tw-p-8 tw-bg-blue-100 tw-h-full">
     <div class="ui grid">
       <div class="sixteen wide column">
         <router-view />

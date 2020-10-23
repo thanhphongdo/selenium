@@ -45,6 +45,31 @@ export default class Project extends Vue {
                         </div>
                     </div>
                 </div>
+                <div class="sixteen wide column tw-pb-2 tw-flex tw-justify-end tw-pt-0">
+                    <div class="ui pagination small menu">
+                        <span class="active item">
+                            {'<'}
+                        </span>
+                        <span class="active item">
+                            1
+                        </span>
+                        <span class="item">
+                            2
+                        </span>
+                        <span class="item">
+                            3
+                        </span>
+                        <span class="item">
+                            4
+                        </span>
+                        <span class="item">
+                            5
+                        </span>
+                        <span class="item">
+                            {'>'}
+                        </span>
+                    </div>
+                </div>
             </div>
         );
     }
