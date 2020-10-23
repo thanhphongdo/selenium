@@ -73,7 +73,7 @@ module.exports = {
     'wrap-iife': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     'lines-around-directive': 'off',
-    // '': 'off',
+    'class-methods-use-this': 'off',
     // '': 'off',
     // '': 'off',
     // '': 'off',

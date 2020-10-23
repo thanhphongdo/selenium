@@ -7,22 +7,17 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Home',
-    component: () => import('../views/Home.vue'),
-  },
-  {
-    path: '/blank',
-    name: 'Blank',
-    component: () => import('../views/Blank.vue'),
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue'),
+    component: () => import('../views/Home'),
   },
   {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/Contact'),
+  },
+  {
+    path: '/blank',
+    name: 'Blank',
+    component: () => import('../views/Blank.vue'),
   },
 ];
 
