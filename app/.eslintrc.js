@@ -74,7 +74,7 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     'lines-around-directive': 'off',
     'class-methods-use-this': 'off',
-    // '': 'off',
+    'indent': 'off',
     // '': 'off',
     // '': 'off',
   },

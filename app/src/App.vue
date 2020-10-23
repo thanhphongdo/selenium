@@ -1,6 +1,10 @@
 <template>
-  <div id="app">
-    <router-view />
+  <div id="app" class="tw-p-8">
+    <div class="ui grid">
+      <div class="sixteen wide column">
+        <router-view />
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">

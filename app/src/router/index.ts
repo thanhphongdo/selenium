@@ -10,6 +10,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Home'),
   },
   {
+    path: '/project',
+    name: 'Project',
+    component: () => import('../views/Project'),
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/Contact'),

@@ -7,7 +7,7 @@ import Logo from '../components/Logo';
 export default class Home extends Vue {
   render() {
     return (
-      <div class="tw-bg-grey-lightest">
+      <div>
         Home
       </div>
     );
