@@ -1,10 +1,12 @@
 import { Vue, Component } from 'vue-property-decorator';
 import ProjectItem from '../components/ProjectItem';
+import Modal from '../components/controls/Modal';
 
 @Component({
-    components: { ProjectItem },
+    components: { ProjectItem, Modal },
 })
 export default class Project extends Vue {
+    test: string = 'Test Project';
     render() {
         return (
             <div class="ui grid">
@@ -70,7 +72,23 @@ export default class Project extends Vue {
                         </span>
                     </div>
                 </div>
-            </div>
+                <Modal id="create-project" {...{
+                    scopedSlots: {
+                        modalHeader: () => {
+                            return (<div>Header {this.test}</div>);
+                        },
+                        modalContent: () => {
+                            return (<div>Content </div>);
+                        }
+                    }
+                }
+                }>
+                    {/* <template>
+                        <div>Content</div>
+                    </template> */}
+                    {/* <div v-slot="content">Content</div> */}
+                </Modal>
+            </div >
         );
     }
 }

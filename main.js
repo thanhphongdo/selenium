@@ -1,6 +1,6 @@
 const Scenario = require('./core/scenario');
-const scenarioData = require('./scenarios/index');
-let scenario = new Scenario(scenarioData[0]);
+const projects = require('./projects/index');
+let scenario = new Scenario(projects[0].scenarios[0]);
 async function start() {
     await scenario.run();
 }

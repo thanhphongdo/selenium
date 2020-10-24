@@ -1,5 +1,5 @@
-const config = require('../config/index');
-const scenario = require('./create_scenario');
+const config = require('../../config/index');
+const scenario = require('../../core/create_scenario');
 module.exports = scenario.createScenario({
     id: 'first_scenario',
     cases: [
@@ -224,4 +224,4 @@ module.exports = scenario.createScenario({
             autoQuiteTimeOut: 1000
         }
     ]
-})
+});
