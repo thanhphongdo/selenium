@@ -18,7 +18,7 @@ export default class Project extends Vue {
     }
     render() {
         return (
-            <div class="ui grid" v-formValidate={{a:1}}>
+            <div class="ui grid">
                 <CreateEditProject id="create-edit-project" on-addRef={(createEditProject: CreateEditProject) => this.createEditProject = createEditProject} />
                 <div class="sixteen wide column tw-pb-2">
                     <div class="ui grid">
