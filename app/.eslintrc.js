@@ -103,8 +103,8 @@ module.exports = {
     'comma-dangle': 'off',
     'max-len': 'off',
     '@typescript-eslint/no-inferrable-types': 'off',
-    // '': 'off',
-    // '': 'off',
+    'arrow-parens': 'off',
+    'import/prefer-default-export': 'off',
     // '': 'off',
   },
 };

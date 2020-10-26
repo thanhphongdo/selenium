@@ -1,15 +1,25 @@
 import { Vue, Component } from 'vue-property-decorator';
-import ProjectItem from '../components/ProjectItem';
-import Modal from '../components/controls/Modal';
+import { mapState } from 'vuex';
+import { ProjectItemInterface } from '../store/root_state_interface';
+import ProjectItem from '../components/project/ProjectItem';
+import CreateEditProject from '../components/project/CreateEditProject';
 
 @Component({
-    components: { ProjectItem, Modal },
+    components: { ProjectItem, CreateEditProject },
+    computed: {
+        ...mapState(['projectList'])
+    }
 })
 export default class Project extends Vue {
     test: string = 'Test Project';
+    createEditProject !: CreateEditProject;
+    projectList !: Array<ProjectItemInterface>;
+    mounted() {
+    }
     render() {
         return (
-            <div class="ui grid">
+            <div class="ui grid" v-formValidate={{a:1}}>
+                <CreateEditProject id="create-edit-project" on-addRef={(createEditProject: CreateEditProject) => this.createEditProject = createEditProject} />
                 <div class="sixteen wide column tw-pb-2">
                     <div class="ui grid">
                         <div class="eight wide column">
@@ -19,31 +29,21 @@ export default class Project extends Vue {
                             </div>
                         </div>
                         <div class="eight wide column tw-text-right">
-                            <button class="ui blue basic button">New project</button>
+                            <button class="ui blue basic button" on-click={() => this.createEditProject.create()}>New project</button>
                         </div>
                     </div>
                 </div>
                 <div class="sixteen wide column tw-pb-2">
                     <div class="ui grid">
                         <div class="three column row">
-                            <div class="column">
-                                <ProjectItem></ProjectItem>
-                            </div>
-                            <div class="column">
-                                <ProjectItem></ProjectItem>
-                            </div>
-                            <div class="column">
-                                <ProjectItem></ProjectItem>
-                            </div>
-                            <div class="column">
-                                <ProjectItem></ProjectItem>
-                            </div>
-                            <div class="column">
-                                <ProjectItem></ProjectItem>
-                            </div>
-                            <div class="column">
-                                <ProjectItem></ProjectItem>
-                            </div>
+                            {this.projectList.map(item => {
+                                return (
+                                    <div class="column">
+                                        <ProjectItem projectData={item}
+                                            on-edit={(projectData: ProjectItemInterface) => this.createEditProject.edit(projectData)} />
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
@@ -72,22 +72,6 @@ export default class Project extends Vue {
                         </span>
                     </div>
                 </div>
-                <Modal id="create-project" {...{
-                    scopedSlots: {
-                        modalHeader: () => {
-                            return (<div>Header {this.test}</div>);
-                        },
-                        modalContent: () => {
-                            return (<div>Content </div>);
-                        }
-                    }
-                }
-                }>
-                    {/* <template>
-                        <div>Content</div>
-                    </template> */}
-                    {/* <div v-slot="content">Content</div> */}
-                </Modal>
             </div >
         );
     }

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>This is an blank page</h1>
+    <h1 v-formValidate>This is an blank page</h1>
     <button class="ui primary basic button">Primary</button>
   </div>
 </template>
