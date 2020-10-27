@@ -1,0 +1,8 @@
+{
+    "projectId": "example_project",
+    "projectTitle": "Project example",
+    "projectDesc": "This is the example project",
+    "scenarios": [
+        "first_scenario"
+    ]
+}

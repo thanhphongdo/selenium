@@ -63,20 +63,4 @@ module.exports = class Utils {
     }
 
     async readCSV() {}
-
-    /**
-     * 
-     * @param {string} code 
-     */
-    formatJSCode(code) {
-        return prettier.format(code, {semi: true, parser: 'babel', tabWidth: 4});
-    }
-
-    /**
-     * 
-     * @param {string} code 
-     */
-    formatJSONCode(code) {
-        return prettier.format(code, {semi: true, parser: 'json', tabWidth: 4});
-    }
 }

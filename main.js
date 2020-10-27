@@ -1,6 +1,6 @@
 const Scenario = require('./core/scenario');
 const projects = require('./projects/index');
-let scenario = new Scenario(projects[0].scenarios[0]);
+let scenario = new Scenario(require(`./projects/${projects[0].projectId}/${projects[0].scenarios[0]}.js`));
 async function start() {
     await scenario.run();
 }
@@ -47,3 +47,7 @@ start();
 // });
 
 // console.log(firstScenarioData);
+
+// const codeServices = require('./services/code');
+
+// codeServices.saveCode('./projects/test/index.js', codeServices.formatJSCode(`function test(){return 1}`));
