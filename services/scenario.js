@@ -53,6 +53,10 @@ async function encodeScenarioFunction(scenario) {
             if (typeof stepItem.expectResult == 'function') {
                 refScenario.cases[caseIndex].steps[stepIndex].expectResult = `{{{cases->${caseIndex}->steps->${stepIndex}->expectResult}}}`;
             }
+            //Actions
+            if (stepItem.action && typeof stepItem.action.actionFunc == 'function') {
+                refScenario.cases[caseIndex].steps[stepIndex].action.actionFunc = `{{{cases->${caseIndex}->steps->${stepIndex}->action->actionFunc}}}`;
+            }
         });
 
         //expectResult

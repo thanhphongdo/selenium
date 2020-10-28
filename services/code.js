@@ -6,7 +6,15 @@ const fs = require('fs-extra');
  * @param {string} code 
  */
 function formatJSCode(code) {
-    return prettier.format(code, {semi: true, parser: 'babel', tabWidth: 4, singleQuote: true});
+    return prettier.format(code, {
+        semi: true,
+        parser: 'babel',
+        tabWidth: 4,
+        singleQuote: true,
+        printWidth: 100,
+        bracketSpacing: false,
+        endOfLine: "auto"
+    });
 }
 
 /**
