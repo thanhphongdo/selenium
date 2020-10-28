@@ -1,11 +1,10 @@
-const config = require('../../config/index');
 const scenario = require('../../core/create_scenario');
 module.exports = scenario.createScenario({
     id: 'first_scenario',
     cases: [
         {
             id: 'open_page',
-            url: `${config.baseUrl}/applicant`,
+            url: 'applicant',
             testData: async (utils, scenario) => {
                 return [
                     async (utils) => {
@@ -120,7 +119,7 @@ module.exports = scenario.createScenario({
         },
         {
             id: 'open_page',
-            url: `${config.baseUrl}/applicant`,
+            url: 'applicant',
             testData: async (utils, scenario) => {
                 return {
                     FIRST_NAME: 'Phong444',

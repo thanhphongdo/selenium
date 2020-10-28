@@ -1,6 +1,7 @@
 const {assert} = require('chai');
 const Page = require('./page');
 const Utils = require('./utils/index');
+const config = require('../config/index');
 let utils = new Utils();
 
 class CaseData {
@@ -65,7 +66,7 @@ module.exports = class Case {
     }
 
     async openBrowser() {
-        return await this.page.visit(this.caseData.url)
+        return await this.page.visit(`${config.baseUrl}/${this.caseData.url}`);
     }
 
     async findElementAtStep(selector) {
