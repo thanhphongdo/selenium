@@ -3,13 +3,14 @@ const path = require('path');
 const fs = require('fs-extra');
 const services = require('../services/index');
 const router = express.Router();
+const Utils = require('../utils');
+const utils = new Utils();
 
-router.get('/api/scenario/get/:projectId/:scenarioId', async function (req, res, next) {
+router.get('/api/scenario/:projectId/:scenarioId', async function (req, res, next) {
     let projectId = req.params.projectId;
     let scenarioId = req.params.scenarioId;
     try {
         let scenarioPath = `./projects/${projectId}/${scenarioId}.js`;
-        console.log(path.resolve(scenarioPath));
         let pathExists = await fs.pathExists(path.resolve(scenarioPath));
         if (!pathExists) {
             res.status(403).json({
@@ -48,6 +49,41 @@ router.post('/api/scenario/create/:projectId/:scenarioId', async function (req, 
             });
         `));
         res.json({projectId, scenarioId});
+    } catch (e) {
+        res.status(403).json({
+            e
+        });
+    }
+});
+
+router.post('/api/scenario/case/new/:projectId/:scenarioId', async function (req, res, next) {
+    let projectId = req.params.projectId;
+    let scenarioId = req.params.scenarioId;
+    let cases = eval(`(()=>{return ${req.body.cases}})()`);
+    try {
+        let scenarioPath = `./projects/${projectId}/${scenarioId}.js`;
+        let pathExists = await fs.pathExists(path.resolve(scenarioPath));
+        if (!pathExists) {
+            res.status(403).json({
+                message: 'Scenario is not exists!'
+            });
+            return;
+        }
+        let scenarioData = await services.scenario.getScenario(projectId, scenarioId);
+        let scenario = eval(`(()=>{return ${scenarioData}})()`);
+        scenario.cases.concat(cases);
+        let scenarioEncode = await services.scenario.encodeScenarioFunction(scenario);
+        let matchKeyPath = scenarioEncode.refScenario.match(scenarioEncode.reg);
+        matchKeyPath.forEach(keyPath => {
+            let keyPathReplace = keyPath.replace('{{{', '').replace('}}}', '').trim();
+            let funcStringify = utils.getPropByKeyPath(keyPathReplace, scenario).toString();
+            scenarioEncode.refScenario = scenarioEncode.refScenario.replace(`"${keyPath}"`, funcStringify);
+        });
+        await services.code.saveCode(scenarioPath, services.code.formatJSCode(`
+            const scenario = require('../../core/create_scenario');
+            module.exports = scenario.createScenario(${scenarioEncode.refScenario});
+        `));
+        res.json(projectId, scenarioId);
     } catch (e) {
         res.status(403).json({
             e

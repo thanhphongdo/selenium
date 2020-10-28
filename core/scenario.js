@@ -1,5 +1,5 @@
 const {Builder, By, until} = require('selenium-webdriver');
-const Utils = require('./utils');
+const Utils = require('../utils');
 const Case = require('./case');
 
 const utils = new Utils();

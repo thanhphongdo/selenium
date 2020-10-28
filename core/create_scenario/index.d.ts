@@ -1,5 +1,5 @@
 import * as Page from '../../core/page';
-import * as Utils from '../../core/utils';
+import * as Utils from '../../utils';
 import { WebElement } from 'selenium-webdriver';
 
 export interface TestDataFunctionInterface {

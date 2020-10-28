@@ -62,5 +62,19 @@ module.exports = class Utils {
         return this.stringReplace(template, data);
     }
 
+    /**
+     * 
+     * @param {string} keyPath 
+     * @param {Object} obj 
+     */
+    getPropByKeyPath(keyPath, obj) {
+        let prop = null;
+        let keys = keyPath.split('->');
+        keys.forEach(key => {
+            obj = obj[key];
+        });
+        return obj;
+    }
+
     async readCSV() {}
 }

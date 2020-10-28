@@ -5,23 +5,6 @@ module.exports = scenario.createScenario({
         {
             id: 'open_page',
             url: 'applicant',
-            testData: async (utils, scenario) => {
-                return [
-                    async (utils) => {
-                        return {
-                            FIRST_NAME: 'Phong222',
-                            LAST_NAME: 'Do222',
-                            FUNC_TEST_1_2: (utils, param1, param2) => {
-                                return param1 + '---' + param2;
-                            }
-                        }
-                    },
-                    {
-                        FIRST_NAME: 'Phong333',
-                        LAST_NAME: 'Do333'
-                    }
-                ]
-            },
             steps: [
                 {
                     selectorType: 'id',
@@ -111,11 +94,28 @@ module.exports = scenario.createScenario({
                     delayBefore: 250
                 },
             ],
+            autoQuiteTimeOut: 1000,
+            testData: async (utils, scenario) => {
+                return [
+                    async (utils) => {
+                        return {
+                            FIRST_NAME: 'Phong222',
+                            LAST_NAME: 'Do222',
+                            FUNC_TEST_1_2: (utils, param1, param2) => {
+                                return param1 + '---' + param2;
+                            }
+                        }
+                    },
+                    {
+                        FIRST_NAME: 'Phong333',
+                        LAST_NAME: 'Do333'
+                    }
+                ]
+            },
             expectResult: async (page, assert) => {
                 await page.findByTagName('body');
                 assert.include('Bar', 'ar3', 'include "ar"')
-            },
-            autoQuiteTimeOut: 1000
+            }
         },
         {
             id: 'open_page',

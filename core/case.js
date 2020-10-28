@@ -1,6 +1,6 @@
 const {assert} = require('chai');
 const Page = require('./page');
-const Utils = require('./utils/index');
+const Utils = require('../utils/index');
 const config = require('../config/index');
 let utils = new Utils();
 

@@ -18,6 +18,55 @@ async function getScenario(projectId, scenarioId) {
     return scenario;
 }
 
+/**
+ * 
+ * @param {object} code 
+ */
+async function encodeScenarioFunction(scenario) {
+    let refScenario = JSON.parse(JSON.stringify(scenario));
+
+    scenario.cases.forEach((caseItem, caseIndex) => {
+        //Test Data
+        if (typeof caseItem.testData == 'function') {
+            refScenario.cases[caseIndex].testData = `{{{cases->${caseIndex}->testData}}}`;
+        }
+        else if (Array.isArray(caseItem.testData)) {
+            caseItem.forEach((testDataItem, testDataIndex) => {
+                let keys = Object.keys(testDataItem);
+                keys.forEach((key, index) => {
+                    if (typeof testDataItem[key] == 'function') {
+                        refScenario.cases[caseIndex].testData[testDataIndex][key] = `{{{cases->${caseIndex}->testData->${testDataIndex}->${key}}}}`
+                    }
+                });
+            });
+        } else {
+            let keys = Object.keys(caseItem.testData);
+            keys.forEach((key, index) => {
+                if (typeof caseItem.testData[key] == 'function') {
+                    refScenario.cases[caseIndex].testData[key] = `{{{cases->${caseIndex}->testData->${key}}}}`;
+                }
+            });
+        }
+
+        //Steps
+        caseItem.steps.forEach((stepItem, stepIndex) => {
+            if (typeof stepItem.expectResult == 'function') {
+                refScenario.cases[caseIndex].steps[stepIndex].expectResult = `{{{cases->${caseIndex}->steps->${stepIndex}->expectResult}}}`;
+            }
+        });
+
+        //expectResult
+        if (typeof caseItem.expectResult == 'function') {
+            refScenario.cases[caseIndex].expectResult = `{{{cases->${caseIndex}->expectResult}}}`;
+        }
+    });
+    return {
+        reg: /{{{(\s+)?((\w|([\-\>])))+(\s+)?}}}/g,
+        refScenario: JSON.stringify(refScenario)
+    }
+}
+
 module.exports = {
-    getScenario
+    getScenario,
+    encodeScenarioFunction
 }
