@@ -1,14 +1,12 @@
 const prettier = require('prettier');
-const mkdirp = require('mkdirp');
 const fs = require('fs-extra');
-const getDirName = require('path').dirname;
 
 /**
  * 
  * @param {string} code 
  */
 function formatJSCode(code) {
-    return prettier.format(code, {semi: true, parser: 'babel', tabWidth: 4});
+    return prettier.format(code, {semi: true, parser: 'babel', tabWidth: 4, singleQuote: true});
 }
 
 /**

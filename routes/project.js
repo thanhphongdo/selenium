@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const fs = require('fs-extra');
 const services = require('../services/index');
 const router = express.Router();
