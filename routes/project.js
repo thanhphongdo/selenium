@@ -39,7 +39,7 @@ router.post('/api/project/create', async function (req, res, next) {
       });
       return;
     }
-    await services.code.saveCode(path, services.code.formatJSONCode(JSON.stringify({projectId, projectTitle, projectDesc})));
+    await services.code.saveCode(path, services.code.formatJSONCode(JSON.stringify({projectId, projectTitle, projectDesc, scenarios: []})));
     res.json({projectId, projectTitle, projectDesc});
   } catch (e) {
     res.status(401).json({
@@ -48,12 +48,14 @@ router.post('/api/project/create', async function (req, res, next) {
   }
 });
 
-router.post('/api/project/update', async function (req, res, next) {
+router.post('/api/project/update/:projectId', async function (req, res, next) {
+  let oldProjectId = req.params.projectId;
   let projectId = req.body['projectId'];
   let projectTitle = req.body['projectTitle'];
   let projectDesc = req.body['projectDesc'];
   try {
-    let path = `./projects/${projectId}/index.json`;
+    let path = `./projects/${oldProjectId}`;
+    let updatePath = `./projects/${projectId}`;
     let pathExists = await fs.pathExists(path);
     if (!pathExists) {
       res.status(401).json({
@@ -61,8 +63,22 @@ router.post('/api/project/update', async function (req, res, next) {
       });
       return;
     }
-    await services.code.saveCode(path, services.code.formatJSONCode(JSON.stringify({projectId, projectTitle, projectDesc})));
-    res.json({projectId, projectTitle, projectDesc});
+    if (oldProjectId != projectId) {
+      pathExists = await fs.pathExists(updatePath);
+      if (pathExists) {
+        res.status(401).json({
+          message: 'new project id is exists!'
+        });
+        return;
+      }
+    }
+    let projectData = await fs.readJSON(path + '/index.json');
+    let scenarios = projectData.scenarios || [];
+    await services.code.saveCode(path + '/index.json', services.code.formatJSONCode(JSON.stringify({projectId, projectTitle, projectDesc, scenarios})));
+    if (oldProjectId != projectId) {
+      await fs.move(path, updatePath);
+    }
+    res.json({projectId, projectTitle, projectDesc, scenarios});
   } catch (e) {
     res.status(401).json({
       e
