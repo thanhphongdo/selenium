@@ -40,12 +40,14 @@ async function encodeScenarioFunction(scenario) {
                 });
             });
         } else {
-            let keys = Object.keys(caseItem.testData);
-            keys.forEach((key, index) => {
-                if (typeof caseItem.testData[key] == 'function') {
-                    refScenario.cases[caseIndex].testData[key] = `{{{cases->${caseIndex}->testData->${key}}}}`;
-                }
-            });
+            if (caseItem.testData) {
+                let keys = Object.keys(caseItem.testData);
+                keys.forEach((key, index) => {
+                    if (typeof caseItem.testData[key] == 'function') {
+                        refScenario.cases[caseIndex].testData[key] = `{{{cases->${caseIndex}->testData->${key}}}}`;
+                    }
+                });
+            }
         }
 
         //Steps

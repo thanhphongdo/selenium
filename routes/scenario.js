@@ -71,7 +71,7 @@ router.post('/api/scenario/case/new/:projectId/:scenarioId', async function (req
         }
         let scenarioData = await services.scenario.getScenario(projectId, scenarioId);
         let scenario = eval(`(()=>{return ${scenarioData}})()`);
-        scenario.cases.concat(cases);
+        scenario.cases = scenario.cases.concat(cases);
         let scenarioEncode = await services.scenario.encodeScenarioFunction(scenario);
         let matchKeyPath = scenarioEncode.refScenario.match(scenarioEncode.reg);
         matchKeyPath.forEach(keyPath => {
@@ -83,7 +83,7 @@ router.post('/api/scenario/case/new/:projectId/:scenarioId', async function (req
             const scenario = require('../../core/create_scenario');
             module.exports = scenario.createScenario(${scenarioEncode.refScenario});
         `));
-        res.json(projectId, scenarioId);
+        res.json({projectId, scenarioId});
     } catch (e) {
         res.status(403).json({
             e
