@@ -56,10 +56,11 @@ router.post('/api/scenario/create/:projectId/:scenarioId', async function (req, 
     }
 });
 
-router.post('/api/scenario/case/new/:projectId/:scenarioId', async function (req, res, next) {
+router.post('/api/scenario/case/:projectId/:scenarioId', async function (req, res, next) {
     let projectId = req.params.projectId;
     let scenarioId = req.params.scenarioId;
     let cases = eval(`(()=>{return ${req.body.cases}})()`);
+    if (!cases) cases = [];
     try {
         let scenarioPath = `./projects/${projectId}/${scenarioId}.js`;
         let pathExists = await fs.pathExists(path.resolve(scenarioPath));
@@ -71,7 +72,8 @@ router.post('/api/scenario/case/new/:projectId/:scenarioId', async function (req
         }
         let scenarioData = await services.scenario.getScenario(projectId, scenarioId);
         let scenario = eval(`(()=>{return ${scenarioData}})()`);
-        scenario.cases = scenario.cases.concat(cases);
+        // scenario.cases = scenario.cases.concat(cases);
+        scenario.cases = cases;
         let scenarioEncode = await services.scenario.encodeScenarioFunction(scenario);
         let matchKeyPath = scenarioEncode.refScenario.match(scenarioEncode.reg);
         matchKeyPath.forEach(keyPath => {
