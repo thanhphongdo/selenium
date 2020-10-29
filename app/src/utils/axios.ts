@@ -2,11 +2,13 @@ import Axios, { AxiosResponse } from 'axios';
 
 export class BaseAxios {
     headers: any;
-    constructor() {
+    baseUrl: string;
+    constructor(baseUrl?: string) {
+        this.baseUrl = baseUrl || '';
         this.headers = {};
     }
     get<T>(url: string, headers?: any): Promise<AxiosResponse<T>> {
-        return Axios.get(url, { headers: headers || this.headers }).then((data: AxiosResponse<T>) => {
+        return Axios.get(this.baseUrl + url, { headers: headers || this.headers }).then((data: AxiosResponse<T>) => {
             return data;
         }).catch(err => {
             return this.handleError(err);
@@ -14,7 +16,7 @@ export class BaseAxios {
     }
 
     post<T>(url: string, params: any, headers?: any): Promise<AxiosResponse<T>> {
-        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then((data: AxiosResponse<T>) => {
+        return Axios.post(this.baseUrl + url, params || {}, { headers: headers || this.headers }).then((data: AxiosResponse<T>) => {
             return data;
         }).catch(err => {
             return this.handleError(err);
@@ -22,7 +24,7 @@ export class BaseAxios {
     }
 
     put<T>(url: string, params: any, headers?: any): Promise<AxiosResponse<T>> {
-        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then((data: AxiosResponse<T>) => {
+        return Axios.post(this.baseUrl + url, params || {}, { headers: headers || this.headers }).then((data: AxiosResponse<T>) => {
             return data;
         }).catch(err => {
             return this.handleError(err);
@@ -30,7 +32,7 @@ export class BaseAxios {
     }
 
     delete<T>(url: string, params: any, headers?: any): Promise<AxiosResponse<T>> {
-        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then((data: AxiosResponse<T>) => {
+        return Axios.post(this.baseUrl + url, params || {}, { headers: headers || this.headers }).then((data: AxiosResponse<T>) => {
             return data;
         }).catch(err => {
             return this.handleError(err);
