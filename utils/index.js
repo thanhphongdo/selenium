@@ -1,5 +1,6 @@
 const reg = /{{[\w|\s]+}}/g;
 const prettier = require('prettier');
+const fs = require('fs-extra');
 
 module.exports = class Utils {
     /**
@@ -74,6 +75,17 @@ module.exports = class Utils {
             obj = obj[key];
         });
         return obj;
+    }
+
+    /**
+     * 
+     * @param {string} path 
+     */
+    async readFileData(path) {
+        if (await fs.pathExists(path)) {
+            return await (await fs.readFile(path)).toString();
+        }
+        return null;
     }
 
     async readCSV() {}
