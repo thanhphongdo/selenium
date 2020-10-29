@@ -1,5 +1,5 @@
 import { Vue, Component } from 'vue-property-decorator';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import { ProjectItemInterface } from '../store/root_state_interface';
 import ProjectItem from '../components/project/ProjectItem';
 import CreateEditProject from '../components/project/CreateEditProject';
@@ -8,13 +8,18 @@ import CreateEditProject from '../components/project/CreateEditProject';
     components: { ProjectItem, CreateEditProject },
     computed: {
         ...mapState(['projectList'])
+    },
+    methods: {
+        ...mapActions(['getProjects'])
     }
 })
 export default class Project extends Vue {
     test: string = 'Test Project';
     createEditProject !: CreateEditProject;
     projectList !: Array<ProjectItemInterface>;
+    getProjects!: Function;
     mounted() {
+        this.getProjects();
     }
     render() {
         return (

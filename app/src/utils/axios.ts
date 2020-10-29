@@ -1,36 +1,36 @@
-import Axios from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 
-export default class BaseAxios {
+export class BaseAxios {
     headers: any;
     constructor() {
         this.headers = {};
     }
-    get(url: string, headers: any) {
-        return Axios.get(url, { headers: headers || this.headers }).then(data => {
+    get<T>(url: string, headers?: any): Promise<AxiosResponse<T>> {
+        return Axios.get(url, { headers: headers || this.headers }).then((data: AxiosResponse<T>) => {
             return data;
         }).catch(err => {
             return this.handleError(err);
         });
     }
 
-    post(url: string, headers: any, params: any) {
-        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then(data => {
+    post<T>(url: string, params: any, headers?: any): Promise<AxiosResponse<T>> {
+        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then((data: AxiosResponse<T>) => {
             return data;
         }).catch(err => {
             return this.handleError(err);
         });
     }
 
-    put(url: string, headers: any, params: any) {
-        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then(data => {
+    put<T>(url: string, params: any, headers?: any): Promise<AxiosResponse<T>> {
+        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then((data: AxiosResponse<T>) => {
             return data;
         }).catch(err => {
             return this.handleError(err);
         });
     }
 
-    delete(url: string, headers: any, params: any) {
-        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then(data => {
+    delete<T>(url: string, params: any, headers?: any): Promise<AxiosResponse<T>> {
+        return Axios.post(url, { headers: headers || this.headers, params: params || {} }).then((data: AxiosResponse<T>) => {
             return data;
         }).catch(err => {
             return this.handleError(err);
