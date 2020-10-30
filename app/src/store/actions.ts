@@ -8,9 +8,9 @@ export const actions: ActionTree<RootStateInterface, RootStateInterface> = {
     changeMessage({ commit }, newMessage: string) {
         commit('changeMessage', newMessage);
     },
-    getProjects({ commit, state }, projects: Array<ProjectItemInterface>) {
+    fetchProject({ commit, state }, projects: Array<ProjectItemInterface>) {
         return axios.get<{ data: Array<ProjectItemInterface> }>('api/project').then(response => {
-            commit('getProjects', response.data.data);
+            commit('fetchProject', response.data.data);
         });
     },
     createProject({ commit }, projectData: ProjectItemInterface) {

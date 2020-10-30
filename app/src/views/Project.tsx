@@ -1,4 +1,5 @@
 import { Vue, Component } from 'vue-property-decorator';
+import { State, Action } from 'vuex-class';
 import { mapState, mapActions } from 'vuex';
 import BaseComponent from '../components/BaseComponent';
 import { ProjectItemInterface } from '../store/root_state_interface';
@@ -6,22 +7,16 @@ import ProjectItem from '../components/project/ProjectItem';
 import CreateEditProject from '../components/project/CreateEditProject';
 
 @Component({
-    components: { ProjectItem, CreateEditProject },
-    computed: {
-        ...mapState(['projectList'])
-    },
-    methods: {
-        ...mapActions(['getProjects'])
-    }
+    components: { ProjectItem, CreateEditProject }
 })
 export default class Project extends BaseComponent {
     test: string = 'Test Project';
     createEditProject !: CreateEditProject;
-    projectList !: Array<ProjectItemInterface>;
-    getProjects!: () => Promise<any>;
+    @State('projectList') projectList!: Array<ProjectItemInterface>;
+    @Action('fetchProject') fetchProject!: () => Promise<any>;
     mounted() {
         this.showLoading();
-        this.getProjects().then(() => this.hideLoading()).catch(() => this.hideLoading());
+        this.fetchProject().then(() => this.hideLoading()).catch(() => this.hideLoading());
     }
     render() {
         return (

@@ -15,6 +15,11 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/Project'),
   },
   {
+    path: '/project/:projectId',
+    name: 'ProjectDetail',
+    component: () => import('../views/ProjectDetail'),
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('../views/Contact'),

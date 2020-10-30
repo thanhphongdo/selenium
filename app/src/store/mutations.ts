@@ -5,11 +5,11 @@ export const mutations: MutationTree<RootStateInterface> = {
     changeMessage(state, newMessage: string) {
         state.message = newMessage;
     },
-    getProjects(state, projects: Array<ProjectItemInterface>) {
+    fetchProject(state, projects: Array<ProjectItemInterface>) {
         state.projectList.splice(0);
         projects.forEach(item => {
             state.projectList.push(item);
-        })
+        });
     },
     createProject(state, projectData: ProjectItemInterface) {
         state.projectList.push(projectData);

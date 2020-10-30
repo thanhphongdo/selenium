@@ -66,7 +66,10 @@ export default class CreateEditProject extends BaseComponent {
             this.createProject(this.projectModel).then(() => this.hideLoading()).catch(() => this.hideLoading());;
         }
         if (this.mode == ProjectMode.EDIT) {
-            this.editProject({ currentProjectId: this.currentProjectId, projectData: this.projectModel }).then(() => this.hideLoading()).catch(() => this.hideLoading());;
+            this.editProject({
+                currentProjectId: this.currentProjectId,
+                projectData: this.projectModel
+            }).then(() => this.hideLoading()).catch(() => this.hideLoading());;
         }
         this.clearProjectModel();
         this.createProjectModal.hide();
