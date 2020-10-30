@@ -31,10 +31,17 @@ export default class ProjectDetail extends BaseComponent {
     }
     render() {
         return (
-            <div class="ui grid">
-                {
-                    this.currentProject.projectId
-                }
+            <div class="ui grid tw-m-0 tw-h-full">
+                <div class="four wide column tw-bg-white tw-border tw-border-solid tw-border-blue-500 tw-h-full">
+                    <div class="tw-bg-blue-200">
+                        scenario
+                    </div>
+                </div>
+                <div class="twelve wide column tw-pr-0 tw-bg-white tw-h-full">
+                    <div class="tw-bg-blue-200">
+                        cases
+                    </div>
+                </div>
             </div>
         );
     }

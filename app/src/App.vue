@@ -1,16 +1,18 @@
 <template>
   <div
     id="app"
-    class="tw-p-8 tw-bg-blue-100 tw-h-full ui segment"
+    class="tw-h-full ui grid segment tw-m-0 tw-p-8 tw-bg-blue-100"
     :style="{ overflow: showLoading ? 'hidden' : 'auto' }"
   >
-    <div class="ui grid">
-      <div class="sixteen wide column">
-        <router-view />
+    <div class="sixteen wide column tw-p-0">
+      <div class="ui grid tw-m-0 tw-h-full">
+        <div class="sixteen wide column tw-p-0">
+          <router-view />
+        </div>
       </div>
-    </div>
-    <div class="ui active dimmer" v-if="showLoading">
-      <div class="ui loader"></div>
+      <div class="ui active dimmer" v-if="showLoading">
+        <div class="ui loader"></div>
+      </div>
     </div>
   </div>
 </template>

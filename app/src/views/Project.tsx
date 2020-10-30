@@ -19,10 +19,10 @@ export default class Project extends BaseComponent {
     }
     render() {
         return (
-            <div class="ui grid">
+            <div class="ui grid tw-m-0">
                 <CreateEditProject id="create-edit-project" on-addRef={(createEditProject: CreateEditProject) => this.createEditProject = createEditProject} />
-                <div class="sixteen wide column tw-pb-2">
-                    <div class="ui grid">
+                <div class="sixteen wide column tw-pb-2 tw-pt-0 tw-pr-0 tw-pl-0">
+                    <div class="ui grid tw-m-0">
                         <div class="eight wide column">
                             <div class="ui icon input">
                                 <input type="text" placeholder="Search..." />
@@ -34,8 +34,8 @@ export default class Project extends BaseComponent {
                         </div>
                     </div>
                 </div>
-                <div class="sixteen wide column tw-pb-2">
-                    <div class="ui grid">
+                <div class="sixteen wide column tw-pb-2 tw-pt-0 tw-pr-0 tw-pl-0">
+                    <div class="ui grid tw-m-0">
                         <div class="three column row">
                             {this.projectList.map(item => {
                                 return (
@@ -48,7 +48,7 @@ export default class Project extends BaseComponent {
                         </div>
                     </div>
                 </div>
-                <div class="sixteen wide column tw-pb-2 tw-flex tw-justify-end tw-pt-0">
+                <div class="sixteen wide column tw-pb-2 tw-pt-0 tw-pr-0 tw-pl-0 tw-flex tw-justify-end tw-pt-0">
                     <div class="ui pagination small menu">
                         <span class="active item">
                             {'<'}
