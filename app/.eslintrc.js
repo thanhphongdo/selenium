@@ -105,6 +105,7 @@ module.exports = {
     '@typescript-eslint/no-inferrable-types': 'off',
     'arrow-parens': 'off',
     'import/prefer-default-export': 'off',
+    'no-extra-semi': 'off',
     // '': 'off',
   },
 };

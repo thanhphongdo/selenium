@@ -18,7 +18,12 @@ export const actions: ActionTree<RootStateInterface, RootStateInterface> = {
             commit('createProject', projectData);
         });
     },
-    editProject({ commit }, projectData: ProjectItemInterface) {
-        commit('editProject', projectData);
+    editProject({ commit }, project: {
+        currentProjectId: string;
+        projectData: ProjectItemInterface;
+    }) {
+        axios.post(`api/project/update/${project.currentProjectId}`, project.projectData).then(response => {
+            commit('editProject', project.projectData);
+        });
     }
 }

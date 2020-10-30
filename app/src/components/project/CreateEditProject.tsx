@@ -1,6 +1,7 @@
-import { ProjectItemInterface } from '@/store/root_state_interface';
-import { Vue, Component } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import { mapActions } from 'vuex';
+import { ProjectItemInterface } from '../../store/root_state_interface';
+import BaseComponent from '../BaseComponent';
 import Modal from '../controls/Modal';
 
 export enum ProjectMode {
@@ -14,16 +15,20 @@ export enum ProjectMode {
         ...mapActions(['createProject', 'editProject'])
     }
 })
-export default class CreateEditProject extends Vue {
+export default class CreateEditProject extends BaseComponent {
     createProjectModal!: Modal;
     mode!: ProjectMode;
+    currentProjectId!: string;
     projectModel: ProjectItemInterface = {
         projectId: '',
         projectTitle: '',
         projectDesc: ''
     }
-    createProject!: Function;
-    editProject!: Function;
+    createProject!: (projectItem: ProjectItemInterface) => Promise<any>;
+    editProject!: (project: {
+        currentProjectId: string;
+        projectData: ProjectItemInterface;
+    }) => Promise<any>;
     constructor() {
         super();
     }
@@ -33,6 +38,7 @@ export default class CreateEditProject extends Vue {
     }
 
     clearProjectModel() {
+        this.currentProjectId = '';
         this.projectModel = {
             projectId: '',
             projectTitle: '',
@@ -49,16 +55,18 @@ export default class CreateEditProject extends Vue {
     edit(projectData: ProjectItemInterface) {
         this.clearProjectModel();
         this.mode = ProjectMode.EDIT;
+        this.currentProjectId = projectData.projectId;
         this.projectModel = projectData;
         this.createProjectModal.show();
     }
 
     save() {
+        this.showLoading();
         if (this.mode == ProjectMode.CREATE) {
-            this.createProject(this.projectModel);
+            this.createProject(this.projectModel).then(() => this.hideLoading()).catch(() => this.hideLoading());;
         }
         if (this.mode == ProjectMode.EDIT) {
-            this.editProject(this.projectModel);
+            this.editProject({ currentProjectId: this.currentProjectId, projectData: this.projectModel }).then(() => this.hideLoading()).catch(() => this.hideLoading());;
         }
         this.clearProjectModel();
         this.createProjectModal.hide();
@@ -79,7 +87,7 @@ export default class CreateEditProject extends Vue {
                                         <form class="ui form">
                                             <div class="field">
                                                 <label>Project ID</label>
-                                                <input type="text" required v-model={this.projectModel.projectId} readonly={this.mode == ProjectMode.EDIT} name="project-id" placeholder="Project ID" />
+                                                <input type="text" required v-model={this.projectModel.projectId} name="project-id" placeholder="Project ID" />
                                             </div>
                                             <div class="field">
                                                 <label>Project title</label>
