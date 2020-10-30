@@ -28,7 +28,14 @@ export default class ProjectItem extends Vue {
                         <button class="ui icon brown basic mini button">
                             <i class="trash icon"></i>
                         </button>
-                        <button class="ui icon teal basic mini button tw-mr-0">
+                        <button on-click={() => {
+                            this.$router.push({
+                                name: 'ProjectDetail',
+                                params: {
+                                    projectId: this.projectData.projectId || ''
+                                }
+                            })
+                        }} class="ui icon teal basic mini button tw-mr-0">
                             <i class="arrow alternate circle right outline icon"></i>
                         </button>
                     </div>

@@ -5,7 +5,11 @@ export const getters: GetterTree<RootStateInterface, RootStateInterface> = {
     getMessage(state) {
         return state.message;
     },
-    getCurentProject(state) {
-        return state.currentProject;
+    getProjectById(state) {
+        return (projectId: string) => {
+            return state.projectList.filter((item) => {
+                return item.projectId == projectId;
+            })[0] || {};
+        }
     }
 }

@@ -1,7 +1,7 @@
 export interface ProjectItemInterface {
-    projectId: string;
-    projectTitle: string;
-    projectDesc: string;
+    projectId?: string;
+    projectTitle?: string;
+    projectDesc?: string;
 }
 
 export interface RootStateInterface {

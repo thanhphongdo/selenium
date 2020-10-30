@@ -1,4 +1,5 @@
-import { Vue, Component, Watch } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
+import { Getter, Action } from 'vuex-class';
 import { mapState, mapActions } from 'vuex';
 import { Route } from 'vue-router';
 import BaseComponent from '../components/BaseComponent';
@@ -16,15 +17,24 @@ import CreateEditProject from '../components/project/CreateEditProject';
     }
 })
 export default class ProjectDetail extends BaseComponent {
+    @Getter('getProjectById') getProjectById!: (projectId: string) => ProjectItemInterface;
+    @Action('fetchProject') fetchProject!: () => Promise<any>;
     @Watch('$route', { immediate: true, deep: true }) onRouteChange(route: Route) {
-        console.log(route.params.projectId);
+        this.projectId = route.params.projectId;
     }
+    projectId!: string;
+    currentProject: ProjectItemInterface = {};
     mounted() {
+        this.fetchProject().then(() => {
+            this.currentProject = this.getProjectById(this.projectId);
+        });
     }
     render() {
         return (
             <div class="ui grid">
-                ProjectDetail
+                {
+                    this.currentProject.projectId
+                }
             </div>
         );
     }

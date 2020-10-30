@@ -55,7 +55,7 @@ export default class CreateEditProject extends BaseComponent {
     edit(projectData: ProjectItemInterface) {
         this.clearProjectModel();
         this.mode = ProjectMode.EDIT;
-        this.currentProjectId = projectData.projectId;
+        this.currentProjectId = projectData.projectId || '';
         this.projectModel = projectData;
         this.createProjectModal.show();
     }

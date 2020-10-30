@@ -106,6 +106,7 @@ module.exports = {
     'arrow-parens': 'off',
     'import/prefer-default-export': 'off',
     'no-extra-semi': 'off',
+    'no-underscore-dangle': 'off',
     // '': 'off',
   },
 };
