@@ -7,7 +7,7 @@ export interface TestDataFunctionInterface {
 }
 
 export interface ActionInterface {
-    action?: string;
+    action?: 'input' | 'click' | 'scroll' | 'scrollToBottom' | 'execute_js';
     actionFunc?: (element: WebElement, page: Page, utils: Utils) => any;
     text?: string;
     script?: string;
@@ -16,7 +16,7 @@ export interface ActionInterface {
 }
 
 export interface StepInterface {
-    selectorType: string;
+    selectorType: 'id' | 'xPath' | 'tagName' | 'className';
     selectorQuery: string;
     action: ActionInterface;
     expectResult?(page: Page, assert: Chai.Assert): any;

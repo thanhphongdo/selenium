@@ -21,7 +21,7 @@ router.get('/api/scenario/:projectId/:scenarioId', async function (req, res, nex
         let data = await services.scenario.getScenario(projectId, scenarioId);
         res.status(200).json({
             data: data
-        })
+        });
     } catch (e) {
         res.status(403).json({
             e

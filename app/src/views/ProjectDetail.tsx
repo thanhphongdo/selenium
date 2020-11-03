@@ -37,7 +37,7 @@ export default class ProjectDetail extends BaseComponent {
                         scenario
                     </div>
                 </div>
-                <div class="twelve wide column tw-pr-0 tw-bg-white tw-h-full">
+                <div class="twelve wide column tw-pr-0 tw-bg-white tw-border tw-border-solid tw-border-blue-500 tw-border-l-0 tw-h-full">
                     <div class="tw-bg-blue-200">
                         cases
                     </div>
