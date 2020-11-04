@@ -1,6 +1,6 @@
 const Scenario = require('./core/scenario');
 const projects = require('./projects/index');
-let scenario = new Scenario(require(`./projects/${projects[0].projectId}/${projects[0].scenarios[0]}.js`));
+let scenario = new Scenario(require(`./projects/${projects[0].projectId}/${projects[0].scenarios[0].id}.js`));
 async function start() {
     await scenario.run();
 }

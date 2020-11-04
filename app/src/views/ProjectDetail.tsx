@@ -32,12 +32,19 @@ export default class ProjectDetail extends BaseComponent {
     render() {
         return (
             <div class="ui grid tw-m-0 tw-h-full">
-                <div class="four wide column tw-bg-white tw-border tw-border-solid tw-border-blue-500 tw-h-full">
-                    <div class="tw-bg-blue-200">
-                        scenario
+                <div class="four wide column tw-bg-white tw-border tw-border-solid tw-border-blue-500 tw-h-full tw-p-2">
+                    <div>
+                        {this.currentProject.scenarios?.map(item => {
+                            return (
+                                <div class="tw-bg-blue-200 tw-p-2 tw-mb-2">
+                                    <div class="tw-text-blue-700 tw-text-xl">{item.id}</div>
+                                    <div class="tw-text-blue-600 tw-italic">{item.desc}</div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
-                <div class="twelve wide column tw-pr-0 tw-bg-white tw-border tw-border-solid tw-border-blue-500 tw-border-l-0 tw-h-full">
+                <div class="twelve wide column tw-bg-white tw-border tw-border-solid tw-border-blue-500 tw-border-l-0 tw-h-full tw-p-2">
                     <div class="tw-bg-blue-200">
                         cases
                     </div>

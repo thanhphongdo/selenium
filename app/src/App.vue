@@ -1,10 +1,10 @@
 <template>
   <div
     id="app"
-    class="tw-h-full ui grid segment tw-m-0 tw-p-8 tw-bg-blue-100"
+    class="tw-h-full ui grid segment tw-m-0 tw-p-0 tw-bg-blue-100"
     :style="{ overflow: showLoading ? 'hidden' : 'auto' }"
   >
-    <div class="sixteen wide column tw-p-0">
+    <div class="sixteen wide column tw-p-8">
       <div class="ui grid tw-m-0 tw-h-full">
         <div class="sixteen wide column tw-p-0">
           <router-view />
