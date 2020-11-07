@@ -2,7 +2,7 @@ import { Component, Prop } from 'vue-property-decorator';
 import BaseComponent from '../BaseComponent';
 
 @Component
-export default class ScenarioItem extends BaseComponent {
+export default class ScenarioDetail extends BaseComponent {
     @Prop() scenarioItem!: {
         id: string;
         desc: string;

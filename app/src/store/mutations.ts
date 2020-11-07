@@ -1,5 +1,6 @@
 import { MutationTree } from 'vuex';
-import { ProjectItemInterface, RootStateInterface } from './root_state_interface';
+import { ProjectItemInterface } from '../interfaces/project-interface';
+import { RootStateInterface } from './root_state_interface';
 
 export const mutations: MutationTree<RootStateInterface> = {
     changeMessage(state, newMessage: string) {

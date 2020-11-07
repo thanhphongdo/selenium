@@ -1,4 +1,4 @@
-import { FormValidateDirective } from './form_validate';
+import { FormValidateDirective } from './form-validate';
 
 export {
     FormValidateDirective

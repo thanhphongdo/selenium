@@ -1,5 +1,5 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { ProjectItemInterface } from '../../store/root_state_interface';
+import { ProjectItemInterface } from '../../interfaces/project-interface';
 
 @Component
 export default class ProjectItem extends Vue {

@@ -1,6 +1,6 @@
 import { Vue, Component } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
-import { ProjectItemInterface } from '../store/root_state_interface';
+import { ProjectItemInterface } from '../interfaces/project-interface';
 import BaseComponent from '../components/BaseComponent';
 import ProjectItem from '../components/project/ProjectItem';
 import CreateEditProject from '../components/project/CreateEditProject';

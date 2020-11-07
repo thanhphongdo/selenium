@@ -1,5 +1,6 @@
 import { ActionTree } from 'vuex';
-import { ProjectItemInterface, RootStateInterface } from './root_state_interface';
+import { ProjectItemInterface } from '../interfaces/project-interface';
+import { RootStateInterface } from './root_state_interface';
 import { BaseAxios } from '../utils/axios';
 
 const axios = new BaseAxios('http://localhost:3000/');

@@ -1,16 +1,7 @@
-export interface ProjectItemInterface {
-    projectId?: string;
-    projectTitle?: string;
-    projectDesc?: string;
-    scenarios?: Array<{
-        id: string;
-        desc: string;
-    }>
-}
+import { ProjectItemInterface } from '../interfaces/project-interface'
 
 export interface RootStateInterface {
     baseUrl: string;
     message: string;
     projectList: Array<ProjectItemInterface>;
-    currentProject: ProjectItemInterface;
 }

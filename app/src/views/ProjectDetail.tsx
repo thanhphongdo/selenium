@@ -3,9 +3,10 @@ import { Getter, Action } from 'vuex-class';
 import { mapState, mapActions } from 'vuex';
 import { Route } from 'vue-router';
 import BaseComponent from '../components/BaseComponent';
-import { ProjectItemInterface } from '../store/root_state_interface';
+import { ProjectItemInterface } from '../interfaces/project-interface';
 import ProjectItem from '../components/project/ProjectItem';
 import CreateEditProject from '../components/project/CreateEditProject';
+import ScenarioItem from '../components/scenario/ScenarioItem';
 
 @Component({
     components: { ProjectItem, CreateEditProject },
@@ -36,10 +37,7 @@ export default class ProjectDetail extends BaseComponent {
                     <div>
                         {this.currentProject.scenarios?.map(item => {
                             return (
-                                <div class="tw-bg-blue-200 tw-p-2 tw-mb-2">
-                                    <div class="tw-text-blue-700 tw-text-xl">{item.id}</div>
-                                    <div class="tw-text-blue-600 tw-italic">{item.desc}</div>
-                                </div>
+                                <ScenarioItem scenarioItem={item}></ScenarioItem>
                             );
                         })}
                     </div>

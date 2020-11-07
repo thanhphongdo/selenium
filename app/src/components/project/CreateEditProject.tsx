@@ -1,6 +1,6 @@
 import { Component } from 'vue-property-decorator';
 import { mapActions } from 'vuex';
-import { ProjectItemInterface } from '../../store/root_state_interface';
+import { ProjectItemInterface } from '../../interfaces/project-interface';
 import BaseComponent from '../BaseComponent';
 import Modal from '../controls/Modal';
 
