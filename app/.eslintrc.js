@@ -107,6 +107,12 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-extra-semi': 'off',
     'no-underscore-dangle': 'off',
+    '@typescript-eslint/member-delimiter-style': 'off',
+    'no-trailing-spaces': 'off',
+    'spaced-comment': 'off',
+    'no-lonely-if': 'off',
+    'brace-style': 'off',
+    'no-eval': 'off',
     // '': 'off',
   },
 };

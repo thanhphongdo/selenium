@@ -11,7 +11,8 @@ export default new Vuex.Store<RootStateInterface>({
     state: {
         baseUrl: 'http://localhost:3000/',
         message: 'hello',
-        projectList: []
+        projectList: [],
+        scenarios: {}
     },
     getters: getters,
     mutations: mutations,

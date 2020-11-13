@@ -20,6 +20,10 @@ import ScenarioItem from '../components/scenario/ScenarioItem';
 export default class ProjectDetail extends BaseComponent {
     @Getter('getProjectById') getProjectById!: (projectId: string) => ProjectItemInterface;
     @Action('fetchProject') fetchProject!: () => Promise<any>;
+    @Action('fetchScenarioDetail') fetchScenarioDetail!: (params: {
+        projectId?: string;
+        scenarioId?: string;
+    }) => Promise<any>;
     @Watch('$route', { immediate: true, deep: true }) onRouteChange(route: Route) {
         this.projectId = route.params.projectId;
     }
@@ -37,7 +41,15 @@ export default class ProjectDetail extends BaseComponent {
                     <div>
                         {this.currentProject.scenarios?.map(item => {
                             return (
-                                <ScenarioItem scenarioItem={item}></ScenarioItem>
+                                <div on-click={() => {
+                                    this.fetchScenarioDetail({
+                                        projectId: this.projectId,
+                                        scenarioId: item.id
+                                    });
+                                    (window as any).test = this;
+                                }}>
+                                    <ScenarioItem scenarioItem={item}></ScenarioItem>
+                                </div>
                             );
                         })}
                     </div>

@@ -4,7 +4,7 @@ export interface TestDataFunctionInterface {
 
 export interface ActionInterface {
     action?: 'input' | 'click' | 'scroll' | 'scrollToBottom' | 'execute_js';
-    actionFunc?: (element: any, page: any, utils: any) => any;
+    actionFunc?: string;
     text?: string;
     script?: string;
     delayBefore?: number;
@@ -15,7 +15,7 @@ export interface StepInterface {
     selectorType: 'id' | 'xPath' | 'tagName' | 'className';
     selectorQuery: string;
     action: ActionInterface;
-    expectResult?(page: any, assert: any): any;
+    expectResult?: string;
     delayBefore?: number;
     delayAfter?: number;
 }
@@ -23,7 +23,7 @@ export interface StepInterface {
 export interface CaseInterface {
     id: string;
     url: string;
-    testData: { [key: string]: any } | TestDataFunctionInterface | [{ [key: string]: any } | TestDataFunctionInterface];
+    testData: string;
     steps: StepInterface[];
     expectResult?(page: any, assets: any): any;
     autoQuiteTimeOut?: number;

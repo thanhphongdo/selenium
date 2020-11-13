@@ -2,7 +2,10 @@ import { ActionTree } from 'vuex';
 import { ProjectItemInterface } from '../interfaces/project-interface';
 import { RootStateInterface } from './root_state_interface';
 import { BaseAxios } from '../utils/axios';
+import { ScenarioService } from '../services/scenario';
+import { Utils } from '../utils';
 
+const utils = new Utils();
 const axios = new BaseAxios('http://localhost:3000/');
 
 export const actions: ActionTree<RootStateInterface, RootStateInterface> = {
@@ -25,6 +28,23 @@ export const actions: ActionTree<RootStateInterface, RootStateInterface> = {
     }) {
         axios.post(`api/project/update/${project.currentProjectId}`, project.projectData).then(response => {
             commit('editProject', project.projectData);
+        });
+    },
+    fetchScenarioDetail({ commit, state }, params: { projectId: string, scenarioId: string }) {
+        axios.get<{ data: any }>(`api/scenario/${params.projectId}/${params.scenarioId}`).then(response => {
+            const scenario = eval(`(()=>{return ${response.data.data}})()`);
+            const scenarioEncode = new ScenarioService().encodeScenarioFunction(scenario);
+            const matchKeyPath = scenarioEncode.refScenario.match(scenarioEncode.reg) || [];
+            matchKeyPath.forEach(keyPath => {
+                const keyPathReplace = keyPath.replace('{{{', '').replace('}}}', '').trim();
+                const funcStringify: string = utils.getPropByKeyPath(keyPathReplace, scenario).toString();
+                scenarioEncode.refScenario = scenarioEncode.refScenario.replace(`"${keyPath}"`, `"${funcStringify.replace(/\"/g, '\\"').replace(/\n+/g, '')}"`);
+            });
+            commit('fetchScenarioDetail', {
+                projectId: params.projectId,
+                scenarioId: params.scenarioId,
+                scenarioData: eval(`(()=>{return ${scenarioEncode.refScenario.split('\n').join('')}})()`)
+            });
         });
     }
 }

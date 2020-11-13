@@ -1,5 +1,6 @@
 import { MutationTree } from 'vuex';
 import { ProjectItemInterface } from '../interfaces/project-interface';
+import { ScenarioInterface } from '../interfaces/scenario-interface';
 import { RootStateInterface } from './root_state_interface';
 
 export const mutations: MutationTree<RootStateInterface> = {
@@ -21,5 +22,13 @@ export const mutations: MutationTree<RootStateInterface> = {
                 item = projectData;
             }
         });
-    }
+    },
+    fetchScenarioDetail(state, params: { projectId: string, scenarioId: string, scenarioData: ScenarioInterface }) {
+        if (!state.scenarios[params.projectId]) {
+            state.scenarios[params.projectId] = {};
+        }
+        state.scenarios[params.projectId] = {
+            [params.scenarioId]: params.scenarioData
+        };
+    },
 }
