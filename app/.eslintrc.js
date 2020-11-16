@@ -115,7 +115,7 @@ module.exports = {
     'no-eval': 'off',
     'max-classes-per-file': 'off',
     '@typescript-eslint/ban-types': 'off',
-    // '': 'off',
+    'import/no-duplicates': 'off',
     // '': 'off',
   },
 };

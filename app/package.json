@@ -9,10 +9,14 @@
     "build-tailwindcss": "npx tailwindcss build src/assets/tailwindcss/styles.css -o src/assets/tailwindcss/dist/tailwind.min.css"
   },
   "dependencies": {
+    "@types/marked": "^1.1.0",
+    "@types/showdown": "^1.9.3",
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "jquery": "^3.5.1",
+    "marked": "^1.2.4",
     "prettier": "^2.1.2",
+    "showdown": "^1.9.1",
     "tailwindcss": "^1.9.5",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",

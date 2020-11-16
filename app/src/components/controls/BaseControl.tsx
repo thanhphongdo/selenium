@@ -1,8 +1,9 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
+import BaseComponent from '../BaseComponent';
 declare var $: any;
 
 @Component
-export default class Modal extends Vue {
+export default class Modal extends BaseComponent {
     @Prop(String) readonly id?: string;
     @Prop(String) readonly className?: string;
     @Prop(Object) settings!: { [key: string]: any }
