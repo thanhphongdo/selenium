@@ -2,9 +2,10 @@ import { Component, Watch } from 'vue-property-decorator';
 import { Getter, Action } from 'vuex-class';
 import { mapState, mapActions } from 'vuex';
 import { Route } from 'vue-router';
-import BaseComponent from '../components/BaseComponent';
 import { ProjectItemInterface } from '../interfaces/project-interface';
 import { ScenarioInterface } from '../interfaces/scenario-interface';
+import BaseComponent from '../components/BaseComponent';
+import Accordion from '../components/controls/Accordion';
 import ProjectItem from '../components/project/ProjectItem';
 import CreateEditProject from '../components/project/CreateEditProject';
 import ScenarioItem from '../components/scenario/ScenarioItem';
@@ -65,77 +66,25 @@ export default class ProjectDetail extends BaseComponent {
                     </div>
                 </div>
                 <div class="twelve wide column tw-bg-white tw-border tw-border-solid tw-border-blue-500 tw-border-l-0 tw-h-full tw-p-2 tw-overflow-auto">
-                <div>
+                    <div>
                         {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
-                        }
-                    </div><div>
-                        {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
-                        }
-                    </div><div>
-                        {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
-                        }
-                    </div><div>
-                        {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
-                        }
-                    </div><div>
-                        {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
-                        }
-                    </div><div>
-                        {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
-                        }
-                    </div><div>
-                        {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
-                        }
-                    </div><div>
-                        {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
-                        }
-                    </div><div>
-                        {
-                            this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
-                                return (
-                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
-                                );
-                            }) : null
+                            this.data.currentScenario?.cases.length ? (
+                                <Accordion className='styled fluid'>
+                                    {
+                                        this.data.currentScenario ? this.data.currentScenario.cases.map(item => {
+                                            return [
+                                                <div class="title" id={'case-title-' + item.id}>
+                                                    <i class="dropdown icon"></i>
+                                                    <span>ID: {item.id}</span>
+                                                </div>,
+                                                <div class="content" id={'case-content-' + item.id}>
+                                                    <CaseDetail caseItem={item} projectId={this.projectId} scenarioId={this.data.currentScenario?.id}></CaseDetail>
+                                                </div>
+                                            ];
+                                        }) : null
+                                    }
+                                </Accordion>
+                            ) : null
                         }
                     </div>
                 </div>

@@ -1,17 +1,15 @@
-import { Vue, Component, Prop } from 'vue-property-decorator';
-declare var $: any;
-
+import { Component, Prop } from 'vue-property-decorator';
+import BaseControl from './BaseControl';
 @Component
-export default class Modal extends Vue {
-    @Prop(String) readonly id?: string;
-    @Prop(Object) settings!: { [key: string]: any }
+export default class Modal extends BaseControl {
     element: any;
     modalSettings!: { [key: string]: any };
     constructor() {
         super();
+        this.setControlId(this.constructor.name);
     }
     mounted() {
-        this.element = $('#' + this.id);
+        this.element = this.jQuery('#' + this.eleId);
         this.modalSettings = this.settings || {};
         this.$emit('addRef', this);
     }
@@ -32,22 +30,22 @@ export default class Modal extends Vue {
     }
     render() {
         return (
-            <div id={'modal-' + this.id}>
-                <div id={this.id} class="ui modal">
+            <div>
+                <div id={this.eleId} class={'ui modal ' + (this.className || '')}>
                     <i class="close icon"></i>
                     <div class="header">
                         {
-                            (this.$scopedSlots as any).modalHeader ? (this.$scopedSlots as any).modalHeader() : null
+                            (this.$scopedSlots as any).header ? (this.$scopedSlots as any).header() : null
                         }
                     </div>
                     <div class="content">
                         {
-                            (this.$scopedSlots as any).modalContent ? (this.$scopedSlots as any).modalContent() : null
+                            (this.$scopedSlots as any).content ? (this.$scopedSlots as any).content() : null
                         }
                     </div>
                     <div class="actions">
                         {
-                            (this.$scopedSlots as any).modalActions ? (this.$scopedSlots as any).modalActions() : null
+                            (this.$scopedSlots as any).actions ? (this.$scopedSlots as any).actions() : null
                         }
                     </div>
                 </div>
