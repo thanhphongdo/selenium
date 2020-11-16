@@ -1,12 +1,12 @@
 <template>
   <div
     id="app"
-    class="tw-h-full ui grid segment tw-m-0 tw-p-0 tw-bg-blue-100"
+    class="tw-h-full ui grid segment tw-m-0 tw-p-0"
     :style="{ overflow: showLoading ? 'hidden' : 'auto' }"
   >
-    <div class="sixteen wide column tw-p-8">
+    <div class="sixteen wide column tw-p-8 tw-h-full">
       <div class="ui grid tw-m-0 tw-h-full">
-        <div class="sixteen wide column tw-p-0">
+        <div class="sixteen wide column tw-p-0 tw-h-full">
           <router-view />
         </div>
       </div>
@@ -28,6 +28,7 @@ export default class App extends Vue {
     (window as any).hideLoading = () => {
       this.showLoading = false;
     };
+    (window as any).test = this;
   }
 }
 </script>

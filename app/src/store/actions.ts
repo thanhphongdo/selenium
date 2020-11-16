@@ -18,7 +18,7 @@ export const actions: ActionTree<RootStateInterface, RootStateInterface> = {
         });
     },
     createProject({ commit }, projectData: ProjectItemInterface) {
-        axios.post('api/project/create', projectData).then(response => {
+        return axios.post('api/project/create', projectData).then(response => {
             commit('createProject', projectData);
         });
     },
@@ -26,24 +26,24 @@ export const actions: ActionTree<RootStateInterface, RootStateInterface> = {
         currentProjectId: string;
         projectData: ProjectItemInterface;
     }) {
-        axios.post(`api/project/update/${project.currentProjectId}`, project.projectData).then(response => {
+        return axios.post(`api/project/update/${project.currentProjectId}`, project.projectData).then(response => {
             commit('editProject', project.projectData);
         });
     },
     fetchScenarioDetail({ commit, state }, params: { projectId: string, scenarioId: string }) {
-        axios.get<{ data: any }>(`api/scenario/${params.projectId}/${params.scenarioId}`).then(response => {
+        return axios.get<{ data: any }>(`api/scenario/${params.projectId}/${params.scenarioId}`).then(response => {
             const scenario = eval(`(()=>{return ${response.data.data}})()`);
             const scenarioEncode = new ScenarioService().encodeScenarioFunction(scenario);
             const matchKeyPath = scenarioEncode.refScenario.match(scenarioEncode.reg) || [];
             matchKeyPath.forEach(keyPath => {
                 const keyPathReplace = keyPath.replace('{{{', '').replace('}}}', '').trim();
                 const funcStringify: string = utils.getPropByKeyPath(keyPathReplace, scenario).toString();
-                scenarioEncode.refScenario = scenarioEncode.refScenario.replace(`"${keyPath}"`, `"${funcStringify.replace(/\"/g, '\\"').replace(/\n+/g, '')}"`);
+                scenarioEncode.refScenario = scenarioEncode.refScenario.replace(`"${keyPath}"`, `\`${funcStringify.replace(/\`/g, '\\`').replace(/\$\{/g,'\\${')}\``);
             });
             commit('fetchScenarioDetail', {
                 projectId: params.projectId,
                 scenarioId: params.scenarioId,
-                scenarioData: eval(`(()=>{return ${scenarioEncode.refScenario.split('\n').join('')}})()`)
+                scenarioData: eval(`(()=>{return ${scenarioEncode.refScenario}})()`)
             });
         });
     }

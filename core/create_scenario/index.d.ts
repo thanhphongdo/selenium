@@ -27,6 +27,7 @@ export interface StepInterface {
 export interface CaseInterface {
     id: string;
     url: string;
+    desc?: string;
     testData: { [key: string]: any } | TestDataFunctionInterface | [{ [key: string]: any } | TestDataFunctionInterface];
     // testData: TestDataFunctionInterface;
     steps: StepInterface[];

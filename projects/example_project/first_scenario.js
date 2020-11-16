@@ -3,8 +3,12 @@ module.exports = scenario.createScenario({
     id: 'first_scenario',
     cases: [
         {
-            id: 'open_page',
+            id: 'open_applicant',
             url: 'applicant',
+            desc: `
+                Open applicant 
+                and fill data
+            `,
             steps: [
                 {
                     selectorType: 'id',
@@ -13,13 +17,13 @@ module.exports = scenario.createScenario({
                         delayBefore: 250,
                         actionFunc: async (page, element, utils) => {
                             await element.sendKeys(
-                                'pgsw_100_' + utils.random(1000000, 9999999) + '@yopmail.com'
+                                `pgsw_100_${utils.random(1000000, 9999999)}@yopmail.com`
                             );
                         },
                     },
                     expectResult: async (page, assert) => {
                         await page.findByTagName('body');
-                        assert.include('Bar', 'ar2', 'include "ar"');
+                        assert.include('Bar', 'ar2', 'include `ar`');
                     },
                 },
                 {
@@ -59,7 +63,7 @@ module.exports = scenario.createScenario({
                     selectorType: 'xPath',
                     selectorQuery:
                         '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[4]/div/div/div/label/i',
-                    action: {action: 'click'},
+                    action: { action: 'click' },
                     expectResult: null,
                     delayBefore: 250,
                 },
@@ -67,7 +71,7 @@ module.exports = scenario.createScenario({
                     selectorType: 'xPath',
                     selectorQuery:
                         '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[8]/div/div/div/label/i',
-                    action: {action: 'click'},
+                    action: { action: 'click' },
                     expectResult: null,
                     delayAfter: 250,
                 },
@@ -75,7 +79,7 @@ module.exports = scenario.createScenario({
                     selectorType: 'xPath',
                     selectorQuery:
                         '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[9]/div/div/div/label/i',
-                    action: {action: 'click'},
+                    action: { action: 'click' },
                     expectResult: null,
                     delayAfter: 250,
                 },
@@ -110,12 +114,12 @@ module.exports = scenario.createScenario({
                 ];
             },
             expectResult: async (page, assert) => {
-                await page.findByTagName('body');
-                assert.include('Bar', 'ar3', 'include "ar"');
+                await page.findByTagName(`body`);
+                assert.include('Bar', 'ar3', 'include `ar`');
             },
         },
         {
-            id: 'open_page',
+            id: 'open_applicant_2',
             url: 'applicant',
             steps: [
                 {
@@ -168,7 +172,7 @@ module.exports = scenario.createScenario({
                     selectorType: 'xPath',
                     selectorQuery:
                         '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[4]/div/div/div/label/i',
-                    action: {action: 'click'},
+                    action: { action: 'click' },
                     expectResult: null,
                     delayBefore: 250,
                 },
@@ -176,7 +180,7 @@ module.exports = scenario.createScenario({
                     selectorType: 'xPath',
                     selectorQuery:
                         '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[8]/div/div/div/label/i',
-                    action: {action: 'click'},
+                    action: { action: 'click' },
                     expectResult: null,
                     delayAfter: 250,
                 },
@@ -184,7 +188,7 @@ module.exports = scenario.createScenario({
                     selectorType: 'xPath',
                     selectorQuery:
                         '//*[@id="rootBody"]/app-root/div/ng-sidebar-container/div/div/div[2]/app-customer-signup/div/div/div/div/form/div[9]/div/div/div/label/i',
-                    action: {action: 'click'},
+                    action: { action: 'click' },
                     expectResult: null,
                     delayAfter: 250,
                 },

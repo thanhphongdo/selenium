@@ -23,6 +23,7 @@ export interface StepInterface {
 export interface CaseInterface {
     id: string;
     url: string;
+    desc?: string;
     testData: string;
     steps: StepInterface[];
     expectResult?(page: any, assets: any): any;

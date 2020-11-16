@@ -5,6 +5,9 @@ export default class BaseComponent extends Vue {
         super();
         this.filters = this.$options.filters;
     }
+    notify(obj: any) {
+        obj.__ob__.dep.notify();
+    }
     showLoading() {
         (window as any).showLoading();
     }

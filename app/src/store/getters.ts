@@ -11,5 +11,10 @@ export const getters: GetterTree<RootStateInterface, RootStateInterface> = {
                 return item.projectId == projectId;
             })[0] || {};
         }
+    },
+    getScenarioDetail(state) {
+        return (projectId: string, scenarioId: string) => {
+            return state.scenarios?.[projectId]?.[scenarioId];
+        }
     }
 }
