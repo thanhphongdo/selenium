@@ -4,6 +4,7 @@ import router from './router';
 import store from './store';
 import { FormValidateDirective } from './directives';
 import "@/assets/jquery/jquery.js";
+import "@/assets/stack-edit/index.js";
 import "@/assets/fomantic-ui/dist/semantic.min.js";
 Vue.config.productionTip = false;
 
