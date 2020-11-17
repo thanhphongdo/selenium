@@ -6,6 +6,8 @@ import BaseControl from './BaseControl';
 @Component
 export default class MarkdownViewer extends BaseControl {
     @Prop(String) src!: String;
+    @Prop(String) width!: String;
+    @Prop(String) height!: String;
     element: any;
     markedSettings!: MarkedOptions;
     marked!: string;
@@ -17,19 +19,16 @@ export default class MarkdownViewer extends BaseControl {
         this.element = this.jQuery('#' + this.eleId);
         this.markedSettings = this.settings || undefined;
         this.$emit('addRef', this);
-        // (window as any).marked = marked;
-        // setTimeout(() => {
-        //     this.marked = (window as any).marked(`Marked - Markdown Parser asdsa
-        //     ==========`);
-        //     console.log(this.eleId);
-        //     this.jQuery('#' + this.eleId).html(this.marked);
-        // }, 2000);
-        this.marked = new showdown.Converter().makeHtml(this.src + '');
-        this.jQuery('#' + this.eleId).html(this.marked);
+        var converter = new showdown.Converter();
+        var html = converter.makeHtml(this.src + '');
+        this.jQuery('#' + this.eleId).html(html);
     }
     render() {
         return (
-            <div id={this.eleId}></div>
+            <div id={this.eleId} style={{
+                width: '100%',
+                height: '300px'
+            }} class="tw-overflow-auto tw-border tw-border-blue-400 tw-border-solid tw-p-2 tw-rounded-md"></div>
         );
     }
 }

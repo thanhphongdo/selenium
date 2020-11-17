@@ -8,11 +8,7 @@ export default class CaseItem extends BaseComponent {
     @Prop() projectId!: string;
     @Prop() scenarioId!: string;
     @Prop() caseItem!: CaseInterface;
-    src: string = `# Installation
-    ## Bower
-
-    bower install showdown
-    `;
+    src!: string;
     constructor() {
         super();
     }

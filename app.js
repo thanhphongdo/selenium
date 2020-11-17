@@ -24,6 +24,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'webapp')));
+app.use(express.static(path.join(__dirname, 'webapp-stack-edit')));
 
 app.use('/', projectRouter);
 app.use('/', scenarioRouter);
