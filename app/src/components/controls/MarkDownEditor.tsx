@@ -27,7 +27,11 @@ export default class MarkDownEditor extends BaseControl {
         });
 
         stackEdit.on('fileChange', (file: any) => {
-            self.$emit('change', file.content.text);
+            self.$emit('change', file.content.text.replace(/\r\n|\r/g, '\n')
+                .replace(/\t/g, '    ')
+                .replace(/[\w\<][^\n]*\n+/g, function (m: any) {
+                    return /\n{2}/.test(m) ? m : m.replace(/\s+$/, '') + '  \n';
+                }));
         });
     }
     render() {
