@@ -6,6 +6,13 @@
     "start": "nodemon ./bin/www",
     "debug": "nodemon --inspect ./bin/www"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "db/*",
+      "app/*",
+      "projects/*/desc/*"
+    ]
+  },
   "dependencies": {
     "axios": "^0.21.0",
     "chai": "^4.2.0",
@@ -17,6 +24,7 @@
     "fs-extra": "^9.0.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "lokijs": "^1.5.11",
     "morgan": "~1.9.1",
     "prettier": "^2.1.2",
     "selenium-webdriver": "^4.0.0-alpha.7"

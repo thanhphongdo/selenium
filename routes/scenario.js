@@ -56,6 +56,14 @@ router.post('/api/scenario/create/:projectId/:scenarioId', async function (req, 
     }
 });
 
+router.post('/api/scenario/desc/:projectId/:scenarioId', async function (req, res, next) {
+    let projectId = req.params['projectId'];
+    let scenarioId = req.params['scenarioId'];
+    let desc = req.body['desc'];
+    const loki = new services.loki();
+    loki.initDB(`./${projectId}/${scenarioId}.json`)
+});
+
 router.post('/api/scenario/case/:projectId/:scenarioId', async function (req, res, next) {
     let projectId = req.params.projectId;
     let scenarioId = req.params.scenarioId;
