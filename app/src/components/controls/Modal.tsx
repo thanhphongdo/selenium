@@ -29,17 +29,17 @@ export default class Modal extends BaseControl {
                 <i class="close icon"></i>
                 <div class="header">
                     {
-                        (this.$scopedSlots as any).modalHeader ? (this.$scopedSlots as any).modalHeader() : null
+                        (this.$scopedSlots as any).header ? (this.$scopedSlots as any).header() : null
                     }
                 </div>
                 <div class="content">
                     {
-                        (this.$scopedSlots as any).modalContent ? (this.$scopedSlots as any).modalContent() : null
+                        (this.$scopedSlots as any).content ? (this.$scopedSlots as any).content() : null
                     }
                 </div>
                 <div class="actions">
                     {
-                        (this.$scopedSlots as any).modalActions ? (this.$scopedSlots as any).modalActions() : null
+                        (this.$scopedSlots as any).actions ? (this.$scopedSlots as any).actions() : null
                     }
                 </div>
             </div>

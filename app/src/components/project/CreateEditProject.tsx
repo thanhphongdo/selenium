@@ -83,10 +83,10 @@ export default class CreateEditProject extends BaseComponent {
                 <Modal id="create-project" on-addRef={(modal: Modal) => this.createProjectModal = modal} settings={{ duration: 500 }}
                     {...{
                         scopedSlots: {
-                            modalHeader: () => {
+                            header: () => {
                                 return (<div>{this.mode == ProjectMode.CREATE ? 'Create new' : 'Edit'} Project</div>);
                             },
-                            modalContent: () => {
+                            content: () => {
                                 return (
                                     <div>
                                         <form class="ui form">
@@ -106,7 +106,7 @@ export default class CreateEditProject extends BaseComponent {
                                     </div>
                                 );
                             },
-                            modalActions: () => {
+                            actions: () => {
                                 return (
                                     <div>
                                         <div class="ui primary button" on-click={this.save}>Save</div>
@@ -115,8 +115,7 @@ export default class CreateEditProject extends BaseComponent {
                                 );
                             }
                         }
-                    }
-                    }>
+                    }}>
                 </Modal>
             </div>
         );

@@ -113,6 +113,13 @@ module.exports = {
     'no-lonely-if': 'off',
     'brace-style': 'off',
     'no-eval': 'off',
+    'max-classes-per-file': 'off',
+    '@typescript-eslint/ban-types': 'off',
+    'import/no-duplicates': 'off',
+    'operator-linebreak': 'off',
+    'curly': 'off',
+    'nonblock-statement-body-position': 'off',
+    'import/no-unresolved': 'off'
     // '': 'off',
   },
 };

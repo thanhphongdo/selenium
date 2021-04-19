@@ -35,6 +35,7 @@
     "menu",
     "message",
     "table",
+    "item",
     "accordion",
     "checkbox",
     "dimmer",

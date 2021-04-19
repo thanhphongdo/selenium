@@ -6,7 +6,7 @@ module.exports = scenario.createScenario({
             id: 'open_applicant',
             url: 'applicant',
             desc: `
-                Open applicant 
+                Open applicant
                 and fill data
             `,
             steps: [
