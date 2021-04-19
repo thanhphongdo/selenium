@@ -11,6 +11,13 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020,
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -119,7 +126,7 @@ module.exports = {
     'operator-linebreak': 'off',
     'curly': 'off',
     'nonblock-statement-body-position': 'off',
-    'import/no-unresolved': 'off'
+    // 'import/no-unresolved': 'off'
     // '': 'off',
   },
 };

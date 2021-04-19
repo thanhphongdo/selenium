@@ -2,10 +2,5 @@
     "projectId": "example_project",
     "projectTitle": "Project example",
     "projectDesc": "This is the example project",
-    "scenarios": [
-        {
-            "id": "first_scenario",
-            "desc": "this is first scenario"
-        }
-    ]
+    "scenarios": [{ "id": "first_scenario", "desc": "this is first scenario" }]
 }

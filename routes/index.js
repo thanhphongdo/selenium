@@ -9,7 +9,7 @@ router.get('/project_info/:project/:scenario/:file', function (req, res, next) {
 router.get('/stackedit/*', function (req, res, next) {
     res.sendFile(path.resolve('./webapp-stack-edit/index.html'));
 });
-router.get('/*', function (req, res, next) {
+router.get('/web/*', function (req, res, next) {
     res.sendFile(path.resolve('./webapp/index.html'));
 });
 // Don't add any route here
