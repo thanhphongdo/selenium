@@ -1,10 +1,10 @@
-const {Builder, By, until} = require('selenium-webdriver');
+const { Builder, By, until } = require('selenium-webdriver');
 const config = require('../config/index');
 
 const chrome = require('selenium-webdriver/chrome');
 let browser = new chrome.Options();
 browser.addArguments('disable-infobars');
-browser.setUserPreferences({credential_enable_service: false});
+browser.setUserPreferences({ credential_enable_service: false });
 
 module.exports = class Page {
     constructor() {
@@ -72,5 +72,9 @@ module.exports = class Page {
                 resolve();
             }, timer);
         });
+    }
+
+    async sendMesage(message) {
+        console.log(message);
     }
 }

@@ -1,7 +1,8 @@
-const {assert} = require('chai');
+const { assert } = require('chai');
 const Page = require('./page');
 const Utils = require('../utils/index');
 const config = require('../config/index');
+const e = require('express');
 let utils = new Utils();
 
 class CaseData {
@@ -69,6 +70,10 @@ module.exports = class Case {
         return await this.page.visit(`${config.baseUrl}/${this.caseData.url}`);
     }
 
+    async closeBrowser() {
+        return await this.page.driver.close();
+    }
+
     async findElementAtStep(selector) {
         switch (selector.selectorType) {
             case 'id':
@@ -133,8 +138,9 @@ module.exports = class Case {
             }
             catch (err) {
                 if (err && err.message) {
-                    console.log(err.message);
+                    this.page.sendMesage(err.message);
                 }
+                throw e;
             }
         }
         if (step.delayAfter) await this.page.delay(step.delayAfter);
@@ -144,7 +150,11 @@ module.exports = class Case {
         await this.caseData.processTestData(this.caseData.testData);
         await this.openBrowser();
         for (let sIndex = 0; sIndex < this.caseData.steps.length; sIndex++) {
-            await this.runStep(sIndex);
+            try {
+                await this.runStep(sIndex);
+            } catch (e) {
+                await this.closeBrowser();
+            }
         }
         if (this.caseData.expectResult) {
             try {

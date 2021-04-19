@@ -1,4 +1,4 @@
-const {Builder, By, until} = require('selenium-webdriver');
+const { Builder, By, until } = require('selenium-webdriver');
 const Utils = require('../utils');
 const Case = require('./case');
 
@@ -33,11 +33,20 @@ module.exports = class Scenario {
             if (Array.isArray(caseData.testData)) {
                 for (let tIndex = 0; tIndex < caseData.testData.length; tIndex++) {
                     let caseItem = new Case(caseData, caseData.testData[tIndex]);
-                    await caseItem.run();
+                    try {
+                        await caseItem.run();
+                    }
+                    catch (e) {
+                        caseItem.page.sendMesage(`CASE ERROR: ${caseItem.caseData.id}`);
+                    }
                 }
             } else {
                 let caseItem = new Case(caseData, caseData.testData);
-                await caseItem.run();
+                try {
+                    await caseItem.run();
+                } catch (e) {
+                    caseItem.page.sendMesage(`CASE ERROR: ${caseItem.caseData.id}`);
+                }
             }
         }
     }

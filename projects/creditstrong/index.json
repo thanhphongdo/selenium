@@ -1,0 +1,6 @@
+{
+    "projectId": "creditstrong",
+    "projectTitle": "Credit Strong",
+    "projectDesc": "Automation test for CS  Application",
+    "scenarios": [{ "id": "welcome_scenario", "desc": "Welcome Scenario" }]
+}
