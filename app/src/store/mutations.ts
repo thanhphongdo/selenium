@@ -10,6 +10,9 @@ export const mutations: MutationTree<RootStateInterface> = {
     fetchProject(state, projects: Array<ProjectItemInterface>) {
         state.projectList.splice(0);
         projects.forEach(item => {
+            item.scenarios.forEach(sItem => {
+                sItem.cases = [];
+            })
             state.projectList.push(item);
         });
     },

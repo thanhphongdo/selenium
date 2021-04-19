@@ -1,55 +1,46 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
-declare var $: any;
+import BaseControl from './BaseControl';
 
 @Component
-export default class Modal extends Vue {
+export default class Modal extends BaseControl {
     @Prop(String) readonly id?: string;
     @Prop(Object) settings!: { [key: string]: any }
     element: any;
     modalSettings!: { [key: string]: any };
     constructor() {
         super();
-    }
-    mounted() {
-        this.element = $('#' + this.id);
-        this.modalSettings = this.settings || {};
-        this.$emit('addRef', this);
-    }
-    set(settings: { [key: string]: any }) {
-        this.modalSettings = settings || {};
+        this.setControlId(this.constructor.name);
     }
     show() {
-        this.element.modal(this.modalSettings).modal('show');
+        this.element.modal(this.cmpSettings).modal('show');
     }
     hide() {
-        this.element.modal(this.modalSettings).modal('hide');
+        this.element.modal(this.cmpSettings).modal('hide');
     }
     toggle() {
-        this.element.modal(this.modalSettings).modal('toggle');
+        this.element.modal(this.cmpSettings).modal('toggle');
     }
     call(methodName: string) {
-        this.element.modal(this.modalSettings).modal(methodName);
+        this.element.modal(this.cmpSettings).modal(methodName);
     }
     render() {
         return (
-            <div id={'modal-' + this.id}>
-                <div id={this.id} class="ui modal">
-                    <i class="close icon"></i>
-                    <div class="header">
-                        {
-                            (this.$scopedSlots as any).modalHeader ? (this.$scopedSlots as any).modalHeader() : null
-                        }
-                    </div>
-                    <div class="content">
-                        {
-                            (this.$scopedSlots as any).modalContent ? (this.$scopedSlots as any).modalContent() : null
-                        }
-                    </div>
-                    <div class="actions">
-                        {
-                            (this.$scopedSlots as any).modalActions ? (this.$scopedSlots as any).modalActions() : null
-                        }
-                    </div>
+            <div id={this.eleId} class="ui modal">
+                <i class="close icon"></i>
+                <div class="header">
+                    {
+                        (this.$scopedSlots as any).modalHeader ? (this.$scopedSlots as any).modalHeader() : null
+                    }
+                </div>
+                <div class="content">
+                    {
+                        (this.$scopedSlots as any).modalContent ? (this.$scopedSlots as any).modalContent() : null
+                    }
+                </div>
+                <div class="actions">
+                    {
+                        (this.$scopedSlots as any).modalActions ? (this.$scopedSlots as any).modalActions() : null
+                    }
                 </div>
             </div>
         );

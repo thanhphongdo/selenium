@@ -83,8 +83,8 @@ let colors = {
   // 'pink-lighter': '#ffbbca',
   // 'pink-lightest': '#ffebef',
   "gray": {
-    // "100": "#f7fafc",
-    // "200": "#edf2f7",
+    "100": "#d4d4d5",
+    "200": "#edf2f7",
     // "300": "#e2e8f0",
     // "400": "#cbd5e0",
     // "500": "#a0aec0",

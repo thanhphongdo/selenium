@@ -22,7 +22,8 @@ export default class CreateEditProject extends BaseComponent {
     projectModel: ProjectItemInterface = {
         projectId: '',
         projectTitle: '',
-        projectDesc: ''
+        projectDesc: '',
+        scenarios: []
     }
     createProject!: (projectItem: ProjectItemInterface) => Promise<any>;
     editProject!: (project: {
@@ -42,7 +43,8 @@ export default class CreateEditProject extends BaseComponent {
         this.projectModel = {
             projectId: '',
             projectTitle: '',
-            projectDesc: ''
+            projectDesc: '',
+            scenarios: []
         }
     }
 
