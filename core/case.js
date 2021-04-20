@@ -4,6 +4,7 @@ const Utils = require('../utils/index');
 const config = require('../config/index');
 const e = require('express');
 let utils = new Utils();
+const projects = require('../projects/index');
 
 class CaseData {
     /**
@@ -101,6 +102,11 @@ module.exports = class Case {
                 case 'input':
                     await element.sendKeys(action.text);
                     break;
+                case 'click_input':
+                    await element.click();
+                    await this.page.delay(500);
+                    await element.sendKeys(action.text);
+                    break;
                 case 'scroll':
                     if (step.selectorType == 'xPath') {
                         let varName = 'ele_' + new Date().getTime();
@@ -147,6 +153,28 @@ module.exports = class Case {
     }
 
     async run() {
+        const steps = [];
+        this.caseData.steps.forEach(step => {
+            if (!step.copy) {
+                steps.push(step);
+            } else {
+                let scenario = projects[step.copy.projectId].scenario[step.copy.scenarioId];
+                if (step.copy.caseId) {
+                    const cIndex = scenario.cases.findIndex((item) => item.id == step.copy.caseId);
+                    const copySteps = scenario.cases[cIndex].steps;
+                    if (step.copy.copyAllStep) {
+                        copySteps.forEach(item => {
+                            steps.push(item);
+                        });
+                    } else {
+                        copySteps.filter(item => step.copy.stepIds.indexOf(item.id) >= 0).forEach(item => {
+                            steps.push(item);
+                        });
+                    }
+                }
+            }
+        });
+        this.caseData.steps = steps;
         await this.caseData.processTestData(this.caseData.testData);
         await this.openBrowser();
         for (let sIndex = 0; sIndex < this.caseData.steps.length; sIndex++) {
@@ -154,6 +182,7 @@ module.exports = class Case {
                 await this.runStep(sIndex);
             } catch (e) {
                 await this.closeBrowser();
+                throw e;
             }
         }
         if (this.caseData.expectResult) {

@@ -7,7 +7,7 @@ export interface TestDataFunctionInterface {
 }
 
 export interface ActionInterface {
-    action?: 'input' | 'click' | 'scroll' | 'scrollToBottom' | 'execute_js';
+    action?: 'input' | 'click' | 'click_input' | 'scroll' | 'scrollToBottom' | 'execute_js';
     actionFunc?: (element: WebElement, page: Page, utils: Utils) => any;
     text?: string;
     script?: string;
@@ -16,7 +16,15 @@ export interface ActionInterface {
 }
 
 export interface StepInterface {
+    id: string;
     selectorType: 'id' | 'xPath' | 'tagName' | 'className';
+    copy: {
+        projectId: string;
+        scenarioId: string;
+        caseId: string;
+        stepIds?: Array<string>;
+        copyAllStep: boolean;
+    };
     selectorQuery: string;
     action: ActionInterface;
     expectResult?(page: Page, assert: Chai.Assert): any;
@@ -28,6 +36,10 @@ export interface CaseInterface {
     id: string;
     url: string;
     desc?: string;
+    caseRequire?: Array<{
+        scenarioId: string;
+        caseId: string;
+    }>;
     testData: { [key: string]: any } | TestDataFunctionInterface | [{ [key: string]: any } | TestDataFunctionInterface];
     // testData: TestDataFunctionInterface;
     steps: StepInterface[];
