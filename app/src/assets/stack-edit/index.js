@@ -1,1 +1,0 @@
-window.StackEdit = require('./stack-edit');
