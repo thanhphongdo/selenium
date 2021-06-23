@@ -6,7 +6,7 @@ module.exports = {
         "projectDesc": "Automation test for CS  Application",
         "scenarios": scenarios
     },
-    scenario: scenarios.reduce((scenarios, item) => {
+    scenarios: scenarios.reduce((scenarios, item) => {
         const scenario = require(`./${item.id}.js`);
         return {
             ...scenarios,

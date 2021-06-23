@@ -1,7 +1,7 @@
 const Scenario = require('./core/scenario');
 const projects = require('./projects/index');
 // let scenario = new Scenario(require(`./projects/${projects.creditstrong.projectId}/${projects.creditstrong.scenarios[0].id}.js`));
-let scenario = new Scenario(projects.creditstrong.scenario.welcome_scenario);
+let scenario = new Scenario(projects.creditstrong.scenarios.welcome_scenario);
 async function start() {
     try {
         // await scenario.run();
@@ -16,6 +16,7 @@ async function start() {
     }
 }
 start();
+
 
 
 // let firstScenarioData = scenarioData[0];

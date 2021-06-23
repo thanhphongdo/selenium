@@ -1,5 +1,5 @@
 const scenario = require('../../core/create_scenario');
-const scenarioDef = scenario.createScenario({
+module.exports = scenario.createScenario({
     id: 'welcome_scenario',
     cases: [
         {
@@ -100,7 +100,7 @@ const scenarioDef = scenario.createScenario({
                         scenarioId: 'welcome_scenario',
                         caseId: 'open_welcome_page',
                         stepIds: ['owp_input_email', 'owp_input_fName', 'owp_input_lName', 'owp_btn_next_click'],
-                        copyAllStep: true
+                        copyAllStep: false
                     }
                 },
                 {
@@ -148,5 +148,3 @@ const scenarioDef = scenario.createScenario({
         }
     ],
 });
-
-module.exports = scenarioDef;

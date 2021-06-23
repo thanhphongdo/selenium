@@ -19,6 +19,7 @@ router.get('/api/scenario/:projectId/:scenarioId', async function (req, res, nex
             return;
         }
         let data = await services.scenario.getScenario(projectId, scenarioId);
+        let scenario = require(path.resolve(scenarioPath));
         res.status(200).json({
             data: data
         });

@@ -9,14 +9,14 @@ router.get('/api/project', async function (req, res, next) {
     let dirs = await fs.readdir('./projects');
     let readFilesPromises = [];
     dirs.forEach(dir => {
-        readFilesPromises.push(utils.readFileData(`./projects/${dir}/index.json`));
+        readFilesPromises.push(services.project.getProjectById(dir));
     });
     Promise.all(readFilesPromises).then(data => {
         res.json({
-            data: data.filter(item => item).map(item => JSON.parse(item))
+            data: data.filter(item => item).map(item => item.metadata)
         });
     }).catch(error => {
-        res.status(403).json({error: error});
+        res.status(403).json({ error: error });
     });
 });
 
@@ -31,7 +31,7 @@ router.get('/api/project/:projectId', async function (req, res, next) {
             });
             return;
         }
-        let data = require(`../projects/${projectId}/index.json`);
+        let data = require(`../projects/${projectId}/index.js`);
         res.status(200).json({
             data: data
         })
@@ -47,7 +47,7 @@ router.post('/api/project/create', async function (req, res, next) {
     let projectTitle = req.body['projectTitle'];
     let projectDesc = req.body['projectDesc'];
     try {
-        let path = `./projects/${projectId}/index.json`;
+        let path = `./projects/${projectId}/index.js`;
         let pathExists = await fs.pathExists(path);
         if (pathExists) {
             res.status(401).json({
@@ -55,8 +55,27 @@ router.post('/api/project/create', async function (req, res, next) {
             });
             return;
         }
-        await services.code.saveCode(path, services.code.formatJSONCode(JSON.stringify({projectId, projectTitle, projectDesc, scenarios: []})));
-        res.json({projectId, projectTitle, projectDesc});
+        // await services.code.saveCode(path, services.code.formatJSCode(JSON.stringify({projectId, projectTitle, projectDesc, scenarios: []})));
+        await services.code.saveCode(path, services.code.formatJSCode(`
+            const scenarios = [];
+            module.exports = {
+                metadata: {
+                    "projectId": "${projectId}",
+                    "projectTitle": "${projectTitle}",
+                    "projectDesc": "${projectDesc}",
+                    "scenarios": scenarios
+                },
+                scenario: scenarios.reduce((scenarios, item) => {
+                    const scenario = require(\`./\${item.id}.js\`);
+                    return {
+                        ...scenarios,
+                        [item.id]: scenario
+                    }
+                }, {})
+            }
+        
+        `));
+        res.json({ projectId, projectTitle, projectDesc });
     } catch (e) {
         res.status(401).json({
             e
@@ -88,13 +107,13 @@ router.post('/api/project/update/:projectId', async function (req, res, next) {
                 return;
             }
         }
-        let projectData = await fs.readJSON(path + '/index.json');
+        let projectData = await fs.readJSON(path + '/index.js');
         let scenarios = projectData.scenarios || [];
-        await services.code.saveCode(path + '/index.json', services.code.formatJSONCode(JSON.stringify({projectId, projectTitle, projectDesc, scenarios})));
+        await services.code.saveCode(path + '/index.js', services.code.formatJSCode(JSON.stringify({ projectId, projectTitle, projectDesc, scenarios })));
         if (oldProjectId != projectId) {
             await fs.move(path, updatePath);
         }
-        res.json({projectId, projectTitle, projectDesc, scenarios});
+        res.json({ projectId, projectTitle, projectDesc, scenarios });
     } catch (e) {
         res.status(401).json({
             e
@@ -114,7 +133,7 @@ router.delete('/api/project/delete/:projectId', async function (req, res, next) 
             return;
         }
         await fs.remove(path);
-        res.json({projectId});
+        res.json({ projectId });
     } catch (e) {
         res.status(401).json({
             e

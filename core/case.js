@@ -158,7 +158,7 @@ module.exports = class Case {
             if (!step.copy) {
                 steps.push(step);
             } else {
-                let scenario = projects[step.copy.projectId].scenario[step.copy.scenarioId];
+                let scenario = projects[step.copy.projectId].scenarios[step.copy.scenarioId];
                 if (step.copy.caseId) {
                     const cIndex = scenario.cases.findIndex((item) => item.id == step.copy.caseId);
                     const copySteps = scenario.cases[cIndex].steps;
