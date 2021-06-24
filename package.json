@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": " nodemon ./bin/www",
-    "debug": "nodemon --inspect ./bin/www"
+    "start": "nodemon ./main.js",
+    "debug": "nodemon --inspect ./main.js"
   },
   "nodemonConfig": {
     "ignore": [

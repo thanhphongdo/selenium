@@ -1,21 +1,25 @@
-const Scenario = require('./core/scenario');
-const projects = require('./projects/index');
-// let scenario = new Scenario(require(`./projects/${projects.creditstrong.projectId}/${projects.creditstrong.scenarios[0].id}.js`));
-let scenario = new Scenario(projects.creditstrong.scenarios.welcome_scenario);
-async function start() {
-    try {
-        // await scenario.run();
-        await scenario.runCaseById('input_dob')
-    }
-    catch (e) {
-        if (e.message) {
-            console.log(e.message);
-        } else {
-            console.log('CASE ERROR');
-        }
-    }
-}
-start();
+const core = require('./core/index');
+
+core.server.startServer();
+
+// const Scenario = require('./core/scenario');
+// const projects = require('./projects/index');
+// // let scenario = new Scenario(require(`./projects/${projects.creditstrong.projectId}/${projects.creditstrong.scenarios[0].id}.js`));
+// let scenario = new Scenario(projects.creditstrong.scenarios.welcome_scenario);
+// async function start() {
+//     try {
+//         // await scenario.run();
+//         await scenario.runCaseById('input_dob')
+//     }
+//     catch (e) {
+//         if (e.message) {
+//             console.log(e.message);
+//         } else {
+//             console.log('CASE ERROR');
+//         }
+//     }
+// }
+// start();
 
 
 
