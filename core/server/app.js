@@ -20,7 +20,9 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'projects')));
+// app.use(express.static(path.join(__dirname, 'projects')));
+app.use(express.static(path.join(__dirname, '../agent/dist/agent')));
+// console.log(path.join(__dirname, '../agent/dist/agent'));
 
 app.use('/', indexRouter);
 
